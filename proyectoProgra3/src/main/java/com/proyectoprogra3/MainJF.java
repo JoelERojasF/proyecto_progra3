@@ -26,21 +26,83 @@ public class MainJF extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        MenuPacientes = new javax.swing.JMenu();
+        MenuMedicos = new javax.swing.JMenu();
+        MenuEquipoMedico = new javax.swing.JMenu();
+        MenuConsultasMedicas = new javax.swing.JMenu();
+        MenuSalir = new javax.swing.JMenu();
+        OpcionSalir = new javax.swing.JMenuItem();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jMenuItem2.setText("jMenuItem2");
+
+        jMenu5.setText("jMenu5");
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        MenuPacientes.setText("pacientes");
+        MenuPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuPacientesActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(MenuPacientes);
+
+        MenuMedicos.setText("medicos");
+        MenuMedicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuMedicosActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(MenuMedicos);
+
+        MenuEquipoMedico.setText("Equipo medico");
+        MenuEquipoMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuEquipoMedicoActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(MenuEquipoMedico);
+
+        MenuConsultasMedicas.setText("consultas");
+        MenuConsultasMedicas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuConsultasMedicasActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(MenuConsultasMedicas);
+
+        MenuSalir.setText("salir");
+
+        OpcionSalir.setText("salir");
+        MenuSalir.add(OpcionSalir);
+
+        jMenuBar1.add(MenuSalir);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void MenuPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuPacientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuPacientesActionPerformed
+
+    private void MenuMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuMedicosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuMedicosActionPerformed
+
+    private void MenuEquipoMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuEquipoMedicoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuEquipoMedicoActionPerformed
+
+    private void MenuConsultasMedicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuConsultasMedicasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuConsultasMedicasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +140,14 @@ public class MainJF extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu MenuConsultasMedicas;
+    private javax.swing.JMenu MenuEquipoMedico;
+    private javax.swing.JMenu MenuMedicos;
+    private javax.swing.JMenu MenuPacientes;
+    private javax.swing.JMenu MenuSalir;
+    private javax.swing.JMenuItem OpcionSalir;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
 }
