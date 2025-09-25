@@ -11,13 +11,13 @@ import javax.swing.JOptionPane;
  *
  * @author le0jx
  */
-public class panelAgregarPacientes extends javax.swing.JPanel {
+public class panelAgregarMedicos extends javax.swing.JPanel {
 
     
     /**
      * Creates new form panelPacientes
      */
-    public panelAgregarPacientes() {
+    public panelAgregarMedicos() {
         initComponents();
     }
     
@@ -33,19 +33,15 @@ public class panelAgregarPacientes extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jTextFieldNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextFieldEdad = new javax.swing.JTextField();
-        jTextFieldDireccion = new javax.swing.JTextField();
+        jTextFieldEspecialidad = new javax.swing.JTextField();
         botonAgregar = new javax.swing.JButton();
 
-        jLabel1.setText("agregar pacientes");
+        jLabel1.setText("agregar medicos");
 
         jLabel2.setText("nombre");
 
-        jLabel3.setText("edad");
-
-        jLabel4.setText("direccion");
+        jLabel4.setText("especialidad");
 
         botonAgregar.setText("Agregar");
         botonAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -70,33 +66,27 @@ public class panelAgregarPacientes extends javax.swing.JPanel {
                         .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextFieldNombre)
-                            .addComponent(jTextFieldEdad)
-                            .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(70, Short.MAX_VALUE))
+                            .addComponent(jTextFieldEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextFieldEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
+                    .addComponent(jTextFieldEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(81, 81, 81)
                 .addComponent(botonAgregar)
                 .addGap(41, 41, 41))
         );
@@ -104,9 +94,9 @@ public class panelAgregarPacientes extends javax.swing.JPanel {
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
         // TODO add your handling code here:
-        if(jTextFieldNombre.getText().isBlank() || jTextFieldEdad.getText().isBlank() || jTextFieldDireccion.getText().isBlank()){
+        if(jTextFieldNombre.getText().isBlank() || jTextFieldEspecialidad.getText().isBlank()){
         JOptionPane.showMessageDialog(this, "datos incompletos", "Error", JOptionPane.INFORMATION_MESSAGE);
-        }else{JOptionPane.showMessageDialog(this, "paciente agregado con exito", "paciente agregado", JOptionPane.INFORMATION_MESSAGE);}
+        }else{JOptionPane.showMessageDialog(this, "medico agregado con exito", "medico agregado", JOptionPane.INFORMATION_MESSAGE);}
         
         
     }//GEN-LAST:event_botonAgregarActionPerformed
@@ -116,10 +106,8 @@ public class panelAgregarPacientes extends javax.swing.JPanel {
     private javax.swing.JButton botonAgregar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextFieldDireccion;
-    private javax.swing.JTextField jTextFieldEdad;
+    private javax.swing.JTextField jTextFieldEspecialidad;
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
 }

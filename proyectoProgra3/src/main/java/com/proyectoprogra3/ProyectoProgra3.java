@@ -11,7 +11,7 @@ package com.proyectoprogra3;
 public class ProyectoProgra3 {
 
     public static void main(String[] args) {
-        MainJF main = new MainJF();
+        frameMain main = new frameMain();
         main.setVisible(true);
     }
 }

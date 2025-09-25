@@ -8,10 +8,9 @@ package com.proyectoprogra3;
  *
  * @author le0jx
  */
-public class MainJF extends javax.swing.JFrame {
+public class frameMain extends javax.swing.JFrame {
     
     private panelAgregarPacientes pAgregarPacientes = new panelAgregarPacientes();
-    private panelMedicos pMedicos = new panelMedicos();
     private panelEquipoMedico pEquipo = new panelEquipoMedico();
     private panelConsultasMedicas pConsultas = new panelConsultasMedicas();
     private panelBienvenida inicio = new panelBienvenida();
@@ -19,11 +18,13 @@ public class MainJF extends javax.swing.JFrame {
     private panelActualizarPacientes pActualizarPacientes = new panelActualizarPacientes();
     private panelEliminarPacientes pEliminarPacientes = new panelEliminarPacientes();
     private panelListarPacientes pListarPacientes = new panelListarPacientes();
+    private panelAgregarMedicos pAgregarMedicos = new panelAgregarMedicos();
+    private panelConsultarMedicos pConsultarMedicos = new panelConsultarMedicos();
     
     /**
      * Creates new form MainJF
      */
-    public MainJF() {
+    public frameMain() {
         initComponents();
         setContentPane(inicio);
         revalidate();
@@ -48,7 +49,8 @@ public class MainJF extends javax.swing.JFrame {
         opcionEliminarPacientes = new javax.swing.JMenuItem();
         opcionListarPacientes = new javax.swing.JMenuItem();
         MenuMedicos = new javax.swing.JMenu();
-        opcionMedicos = new javax.swing.JMenuItem();
+        opcionAgregarMedicos = new javax.swing.JMenuItem();
+        opcionConsultarMedicos = new javax.swing.JMenuItem();
         MenuEquipoMedico = new javax.swing.JMenu();
         opcionEquipo = new javax.swing.JMenuItem();
         MenuConsultasMedicas = new javax.swing.JMenu();
@@ -108,13 +110,21 @@ public class MainJF extends javax.swing.JFrame {
 
         MenuMedicos.setText("medicos");
 
-        opcionMedicos.setText("medicos");
-        opcionMedicos.addActionListener(new java.awt.event.ActionListener() {
+        opcionAgregarMedicos.setText("agregar medicos");
+        opcionAgregarMedicos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionMedicosActionPerformed(evt);
+                opcionAgregarMedicosActionPerformed(evt);
             }
         });
-        MenuMedicos.add(opcionMedicos);
+        MenuMedicos.add(opcionAgregarMedicos);
+
+        opcionConsultarMedicos.setText("consultar medicos");
+        opcionConsultarMedicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionConsultarMedicosActionPerformed(evt);
+            }
+        });
+        MenuMedicos.add(opcionConsultarMedicos);
 
         jMenuBar1.add(MenuMedicos);
 
@@ -171,11 +181,11 @@ public class MainJF extends javax.swing.JFrame {
         setVisible(true);
     }//GEN-LAST:event_opcionAgregarPacientesActionPerformed
 
-    private void opcionMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMedicosActionPerformed
+    private void opcionAgregarMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionAgregarMedicosActionPerformed
         // TODO add your handling code here:
-        setContentPane(pMedicos);
+        setContentPane(pAgregarMedicos);
         setVisible(true);
-    }//GEN-LAST:event_opcionMedicosActionPerformed
+    }//GEN-LAST:event_opcionAgregarMedicosActionPerformed
 
     private void opcionEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionEquipoActionPerformed
         // TODO add your handling code here:
@@ -213,6 +223,12 @@ public class MainJF extends javax.swing.JFrame {
         setVisible(true);
     }//GEN-LAST:event_opcionListarPacientesActionPerformed
 
+    private void opcionConsultarMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionConsultarMedicosActionPerformed
+        // TODO add your handling code here:
+        setContentPane(pConsultarMedicos);
+        setVisible(true);
+    }//GEN-LAST:event_opcionConsultarMedicosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -230,20 +246,21 @@ public class MainJF extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainJF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frameMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainJF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frameMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainJF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frameMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainJF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(frameMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainJF().setVisible(true);
+                new frameMain().setVisible(true);
             }
         });
     }
@@ -258,12 +275,13 @@ public class MainJF extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem opcionActualizarPacientes;
+    private javax.swing.JMenuItem opcionAgregarMedicos;
     private javax.swing.JMenuItem opcionAgregarPacientes;
     private javax.swing.JMenuItem opcionBuscarPacientes;
+    private javax.swing.JMenuItem opcionConsultarMedicos;
     private javax.swing.JMenuItem opcionConsultas;
     private javax.swing.JMenuItem opcionEliminarPacientes;
     private javax.swing.JMenuItem opcionEquipo;
     private javax.swing.JMenuItem opcionListarPacientes;
-    private javax.swing.JMenuItem opcionMedicos;
     // End of variables declaration//GEN-END:variables
 }

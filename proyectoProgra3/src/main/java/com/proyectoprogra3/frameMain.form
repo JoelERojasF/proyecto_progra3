@@ -56,12 +56,20 @@
             <Property name="text" type="java.lang.String" value="medicos"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="opcionMedicos">
+            <MenuItem class="javax.swing.JMenuItem" name="opcionAgregarMedicos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="medicos"/>
+                <Property name="text" type="java.lang.String" value="agregar medicos"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionMedicosActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionAgregarMedicosActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="opcionConsultarMedicos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="consultar medicos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionConsultarMedicosActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
