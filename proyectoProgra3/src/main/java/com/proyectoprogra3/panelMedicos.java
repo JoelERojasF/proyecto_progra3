@@ -15,8 +15,9 @@ public class panelMedicos extends javax.swing.JPanel {
      */
     public panelMedicos() {
         initComponents();
+        agregarComponentes();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,20 +35,58 @@ public class panelMedicos extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(177, 177, 177)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(167, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addGap(156, 156, 156))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(108, 108, 108)
+                .addGap(79, 79, 79)
                 .addComponent(jLabel1)
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addContainerGap(205, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void agregarComponentes() {
+        // Campos de texto
+        javax.swing.JLabel lblId = new javax.swing.JLabel("ID:");
+        javax.swing.JTextField txtId = new javax.swing.JTextField(10);
 
+        javax.swing.JLabel lblNombre = new javax.swing.JLabel("Nombre:");
+        javax.swing.JTextField txtNombre = new javax.swing.JTextField(15);
+
+        javax.swing.JLabel lblEspecialidad = new javax.swing.JLabel("Especialidad:");
+        javax.swing.JTextField txtEspecialidad = new javax.swing.JTextField(15);
+
+        // Área de texto para resultados
+        javax.swing.JTextArea areaResultado = new javax.swing.JTextArea(8, 30);
+        javax.swing.JScrollPane scroll = new javax.swing.JScrollPane(areaResultado);
+
+        // Botones
+        javax.swing.JButton btnAgregar = new javax.swing.JButton("Agregar Médico");
+        javax.swing.JButton btnConsultar = new javax.swing.JButton("Consultar Médico");
+
+        // Panel para organizar
+        javax.swing.JPanel panelFormulario = new javax.swing.JPanel(new java.awt.GridLayout(3, 2, 10, 10));
+        panelFormulario.add(lblId);
+        panelFormulario.add(txtId);
+        panelFormulario.add(lblNombre);
+        panelFormulario.add(txtNombre);
+        panelFormulario.add(lblEspecialidad);
+        panelFormulario.add(txtEspecialidad);
+
+        javax.swing.JPanel panelBotones = new javax.swing.JPanel();
+        panelBotones.add(btnAgregar);
+        panelBotones.add(btnConsultar);
+
+        // Usamos BorderLayout para organizar todo
+        this.setLayout(new java.awt.BorderLayout());
+        this.add(panelFormulario, java.awt.BorderLayout.NORTH);
+        this.add(scroll, java.awt.BorderLayout.CENTER);
+        this.add(panelBotones, java.awt.BorderLayout.SOUTH);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
