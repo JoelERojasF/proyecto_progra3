@@ -76,15 +76,31 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="MenuEquipoMedico">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Equipo medico"/>
+            <Property name="text" type="java.lang.String" value="equipo medico"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="opcionEquipo">
+            <MenuItem class="javax.swing.JMenuItem" name="opcionListarEquipo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="equipo medico"/>
+                <Property name="text" type="java.lang.String" value="inventario equipo medico"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionEquipoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionListarEquipoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="opcionAgregarEquipo">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="agregar equipo medico"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionAgregarEquipoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="opcionEliminarEquipo">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="eliminar equipo medico"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionEliminarEquipoActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -94,12 +110,28 @@
             <Property name="text" type="java.lang.String" value="consultas"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="opcionConsultas">
+            <MenuItem class="javax.swing.JMenuItem" name="opcionListarConsultas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="consultas medicas"/>
+                <Property name="text" type="java.lang.String" value="listar consultas medicas"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionConsultasActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionListarConsultasActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="opcionAgregarConsultas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="agendar consulta medica"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionAgregarConsultasActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="opcionEliminarConsultas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="cancelar consulta medica"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionEliminarConsultasActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

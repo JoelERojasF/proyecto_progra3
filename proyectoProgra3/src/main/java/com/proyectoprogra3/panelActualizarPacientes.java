@@ -31,7 +31,6 @@ public class panelActualizarPacientes extends javax.swing.JPanel {
         jTextFieldId = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         botonBuscar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jTextFieldNombre = new javax.swing.JTextField();
         jTextFieldEdad = new javax.swing.JTextField();
         jTextFieldDireccion = new javax.swing.JTextField();
@@ -48,8 +47,6 @@ public class panelActualizarPacientes extends javax.swing.JPanel {
                 botonBuscarActionPerformed(evt);
             }
         });
-
-        jLabel2.setText("buscar paciente");
 
         jLabel3.setText("nombre");
 
@@ -70,9 +67,6 @@ public class panelActualizarPacientes extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -96,9 +90,7 @@ public class panelActualizarPacientes extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(16, 16, 16)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
@@ -148,7 +140,6 @@ public class panelActualizarPacientes extends javax.swing.JPanel {
     private javax.swing.JButton BotonActualizar;
     private javax.swing.JButton botonBuscar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

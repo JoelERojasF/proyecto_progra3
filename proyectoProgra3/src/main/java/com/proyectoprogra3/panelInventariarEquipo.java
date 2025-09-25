@@ -10,12 +10,12 @@ import javax.swing.JOptionPane;
  *
  * @author le0jx
  */
-public class panelEliminarPacientes extends javax.swing.JPanel {
+public class panelInventariarEquipo extends javax.swing.JPanel {
 
     /**
      * Creates new form panelConsultarPacientes
      */
-    public panelEliminarPacientes() {
+    public panelInventariarEquipo() {
         initComponents();
     }
 
@@ -32,12 +32,12 @@ public class panelEliminarPacientes extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         botonBuscar = new javax.swing.JButton();
         jTextFieldNombre = new javax.swing.JTextField();
-        jTextFieldEdad = new javax.swing.JTextField();
-        jTextFieldDireccion = new javax.swing.JTextField();
+        jTextFieldCantidad = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        BotonEliminar = new javax.swing.JButton();
+        BotonAgregar = new javax.swing.JButton();
+        jTextFieldCantidadAñadir = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         jLabel1.setText("ID:");
 
@@ -50,22 +50,20 @@ public class panelEliminarPacientes extends javax.swing.JPanel {
 
         jTextFieldNombre.setEditable(false);
 
-        jTextFieldEdad.setEditable(false);
-
-        jTextFieldDireccion.setEditable(false);
+        jTextFieldCantidad.setEditable(false);
 
         jLabel3.setText("nombre");
 
-        jLabel4.setText("edad");
+        jLabel4.setText("cantidad existente");
 
-        jLabel5.setText("direccion");
-
-        BotonEliminar.setText("Eliminar");
-        BotonEliminar.addActionListener(new java.awt.event.ActionListener() {
+        BotonAgregar.setText("agregar");
+        BotonAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonEliminarActionPerformed(evt);
+                BotonAgregarActionPerformed(evt);
             }
         });
+
+        jLabel2.setText("cantidad a agregar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -74,24 +72,24 @@ public class panelEliminarPacientes extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
+                        .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5))
+                            .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextFieldEdad, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                             .addComponent(jTextFieldNombre, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldId, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+                            .addComponent(jTextFieldCantidadAñadir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonBuscar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(133, 133, 133)
-                        .addComponent(BotonEliminar)))
-                .addContainerGap(87, Short.MAX_VALUE))
+                        .addComponent(BotonAgregar)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,56 +105,51 @@ public class panelEliminarPacientes extends javax.swing.JPanel {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jTextFieldCantidadAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addComponent(BotonEliminar)
+                .addComponent(BotonAgregar)
                 .addContainerGap(108, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         // TODO add your handling code here:
+        jTextFieldNombre.setEditable(false);
         jTextFieldNombre.setText("");
-        jTextFieldEdad.setText("");
-        jTextFieldDireccion.setText("");
+        jTextFieldCantidad.setText("");
         if(!jTextFieldId.getText().isBlank()){
-        jTextFieldNombre.setText("Juan Perez");
-        jTextFieldEdad.setText("22");
-        jTextFieldDireccion.setText("calle inventada 123");
+        jTextFieldNombre.setText("Estetoscopio");
+        jTextFieldCantidad.setText("22");
         }else{
-            JOptionPane.showMessageDialog(this, "el paciente no existe", "paciente no encontrado", JOptionPane.INFORMATION_MESSAGE);
+        jTextFieldNombre.setEditable(true);
+        jTextFieldNombre.setText("objeto nuevo");
+        jTextFieldCantidad.setText("0");
         }
     }//GEN-LAST:event_botonBuscarActionPerformed
 
-    private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
+    private void BotonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAgregarActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "seguro que quiere eliminar a este paciente?", "eliminar paciente", JOptionPane.INFORMATION_MESSAGE);
-        if(jTextFieldId.getText().isBlank() || jTextFieldNombre.getText().isBlank() || jTextFieldEdad.getText().isBlank() || jTextFieldDireccion.getText().isBlank()){
+        if(jTextFieldNombre.getText().isBlank() || jTextFieldCantidad.getText().isBlank() || jTextFieldCantidadAñadir.getText().isBlank()){
         JOptionPane.showMessageDialog(this, "datos incompletos", "Error", JOptionPane.INFORMATION_MESSAGE);
-        }else{
-            jTextFieldId.setText("");
-            jTextFieldNombre.setText("");
-            jTextFieldEdad.setText("");
-            jTextFieldDireccion.setText("");
-            JOptionPane.showMessageDialog(this, "paciente eliminado con exito", "paciente eliminado", JOptionPane.INFORMATION_MESSAGE);}
+        }else{JOptionPane.showMessageDialog(this, "equipo medico agregado con exito", "equipo agregado", JOptionPane.INFORMATION_MESSAGE);}
         
-    }//GEN-LAST:event_BotonEliminarActionPerformed
+    }//GEN-LAST:event_BotonAgregarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotonEliminar;
+    private javax.swing.JButton BotonAgregar;
     private javax.swing.JButton botonBuscar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextFieldDireccion;
-    private javax.swing.JTextField jTextFieldEdad;
+    private javax.swing.JTextField jTextFieldCantidad;
+    private javax.swing.JTextField jTextFieldCantidadAñadir;
     private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
