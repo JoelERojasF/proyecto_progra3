@@ -10,16 +10,24 @@ package com.proyectoprogra3;
  */
 public class MainJF extends javax.swing.JFrame {
     
-    panelPacientes pPacientes = new panelPacientes();
-    panelMedicos pMedicos = new panelMedicos();
-    panelEquipoMedico pEquipo = new panelEquipoMedico();
-    panelConsultasMedicas pConsultas = new panelConsultasMedicas();
-
+    private panelAgregarPacientes pAgregarPacientes = new panelAgregarPacientes();
+    private panelMedicos pMedicos = new panelMedicos();
+    private panelEquipoMedico pEquipo = new panelEquipoMedico();
+    private panelConsultasMedicas pConsultas = new panelConsultasMedicas();
+    private panelBienvenida inicio = new panelBienvenida();
+    private panelConsultarPacientes pConsultaPacientes = new panelConsultarPacientes();
+    private panelActualizarPacientes pActualizarPacientes = new panelActualizarPacientes();
+    private panelEliminarPacientes pEliminarPacientes = new panelEliminarPacientes();
+    private panelListarPacientes pListarPacientes = new panelListarPacientes();
+    
     /**
      * Creates new form MainJF
      */
     public MainJF() {
         initComponents();
+        setContentPane(inicio);
+        revalidate();
+        repaint();
     }
 
     /**
@@ -31,12 +39,14 @@ public class MainJF extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         MenuPacientes = new javax.swing.JMenu();
-        opcionPacientes = new javax.swing.JMenuItem();
+        opcionAgregarPacientes = new javax.swing.JMenuItem();
+        opcionBuscarPacientes = new javax.swing.JMenuItem();
+        opcionActualizarPacientes = new javax.swing.JMenuItem();
+        opcionEliminarPacientes = new javax.swing.JMenuItem();
+        opcionListarPacientes = new javax.swing.JMenuItem();
         MenuMedicos = new javax.swing.JMenu();
         opcionMedicos = new javax.swing.JMenuItem();
         MenuEquipoMedico = new javax.swing.JMenu();
@@ -46,10 +56,6 @@ public class MainJF extends javax.swing.JFrame {
         MenuSalir = new javax.swing.JMenu();
         OpcionSalir = new javax.swing.JMenuItem();
 
-        jMenuItem2.setText("jMenuItem2");
-
-        jMenu5.setText("jMenu5");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -58,13 +64,45 @@ public class MainJF extends javax.swing.JFrame {
 
         MenuPacientes.setText("pacientes");
 
-        opcionPacientes.setText("pacientes");
-        opcionPacientes.addActionListener(new java.awt.event.ActionListener() {
+        opcionAgregarPacientes.setText("agregar pacientes");
+        opcionAgregarPacientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionPacientesActionPerformed(evt);
+                opcionAgregarPacientesActionPerformed(evt);
             }
         });
-        MenuPacientes.add(opcionPacientes);
+        MenuPacientes.add(opcionAgregarPacientes);
+
+        opcionBuscarPacientes.setText("buscar pacientes");
+        opcionBuscarPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionBuscarPacientesActionPerformed(evt);
+            }
+        });
+        MenuPacientes.add(opcionBuscarPacientes);
+
+        opcionActualizarPacientes.setText("actualizar pacientes");
+        opcionActualizarPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionActualizarPacientesActionPerformed(evt);
+            }
+        });
+        MenuPacientes.add(opcionActualizarPacientes);
+
+        opcionEliminarPacientes.setText("eliminar pacientes");
+        opcionEliminarPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionEliminarPacientesActionPerformed(evt);
+            }
+        });
+        MenuPacientes.add(opcionEliminarPacientes);
+
+        opcionListarPacientes.setText("listar pacientes");
+        opcionListarPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionListarPacientesActionPerformed(evt);
+            }
+        });
+        MenuPacientes.add(opcionListarPacientes);
 
         jMenuBar1.add(MenuPacientes);
 
@@ -127,11 +165,11 @@ public class MainJF extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_OpcionSalirActionPerformed
 
-    private void opcionPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionPacientesActionPerformed
+    private void opcionAgregarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionAgregarPacientesActionPerformed
         // TODO add your handling code here:
-        setContentPane(pPacientes);
+        setContentPane(pAgregarPacientes);
         setVisible(true);
-    }//GEN-LAST:event_opcionPacientesActionPerformed
+    }//GEN-LAST:event_opcionAgregarPacientesActionPerformed
 
     private void opcionMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMedicosActionPerformed
         // TODO add your handling code here:
@@ -150,6 +188,30 @@ public class MainJF extends javax.swing.JFrame {
         setContentPane(pConsultas);
         setVisible(true);
     }//GEN-LAST:event_opcionConsultasActionPerformed
+
+    private void opcionBuscarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionBuscarPacientesActionPerformed
+        // TODO add your handling code here:
+        setContentPane(pConsultaPacientes);
+        setVisible(true);
+    }//GEN-LAST:event_opcionBuscarPacientesActionPerformed
+
+    private void opcionActualizarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionActualizarPacientesActionPerformed
+        // TODO add your handling code here:
+        setContentPane(pActualizarPacientes);
+        setVisible(true);
+    }//GEN-LAST:event_opcionActualizarPacientesActionPerformed
+
+    private void opcionEliminarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionEliminarPacientesActionPerformed
+        // TODO add your handling code here:
+        setContentPane(pEliminarPacientes);
+        setVisible(true);
+    }//GEN-LAST:event_opcionEliminarPacientesActionPerformed
+
+    private void opcionListarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionListarPacientesActionPerformed
+        // TODO add your handling code here:
+        setContentPane(pListarPacientes);
+        setVisible(true);
+    }//GEN-LAST:event_opcionListarPacientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,12 +256,14 @@ public class MainJF extends javax.swing.JFrame {
     private javax.swing.JMenu MenuSalir;
     private javax.swing.JMenuItem OpcionSalir;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem opcionActualizarPacientes;
+    private javax.swing.JMenuItem opcionAgregarPacientes;
+    private javax.swing.JMenuItem opcionBuscarPacientes;
     private javax.swing.JMenuItem opcionConsultas;
+    private javax.swing.JMenuItem opcionEliminarPacientes;
     private javax.swing.JMenuItem opcionEquipo;
+    private javax.swing.JMenuItem opcionListarPacientes;
     private javax.swing.JMenuItem opcionMedicos;
-    private javax.swing.JMenuItem opcionPacientes;
     // End of variables declaration//GEN-END:variables
 }
