@@ -67,7 +67,7 @@ public class PersistenciaMedicos {
         guardarListaMedicos(medicos);
     }
      
-    public void eliminarEspecialidad(int id) throws Exception{
+    public void eliminarMedico(int id) throws Exception{
         List<Medico> especialidades = listarMedicos();
         especialidades.removeIf(e -> e.getId() == id);
         guardarListaMedicos(especialidades);
