@@ -5,7 +5,6 @@
 package Persistencia;
 
 import Entidades.Especialidad;
-import Entidades.Paciente;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -39,8 +38,8 @@ private static final String ARCHIVO_ESPECIALIDADES = "especialidades.txt";
             List<String> lineas = Files.readAllLines(Paths.get(ARCHIVO_ESPECIALIDADES));
             for (String linea : lineas) {
                 Especialidad especialidad = new Especialidad();
-                especialidad.fromString(linea);
-                if (especialidad != null) {
+                especialidad = especialidad.fromString(linea);
+                if (especialidad.getId() != 0) {
                     especialidades.add(especialidad);
                 }
             }

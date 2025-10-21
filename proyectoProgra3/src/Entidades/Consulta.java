@@ -60,8 +60,8 @@ public class Consulta {
     
     public Consulta fromString(String data) throws Exception{
         String[] parts = data.split(",");
-        if (parts.length != 4) return null;
-        return new Consulta(Integer.parseInt(parts[0]), new Paciente(Integer.parseInt(parts[1]), parts[2], Integer.parseInt(parts[3]), parts[4]), new Medico(Integer.parseInt(parts[5]), parts[6], new Especialidad(Integer.parseInt(parts[7]), parts[8])), new Fecha(Integer.parseInt(parts[9]),Integer.parseInt(parts[10]),Integer.parseInt(parts[11])));
+        if (parts.length != 10) return null;
+        return new Consulta(Integer.parseInt(parts[0]), new Paciente(Integer.parseInt(parts[1]), parts[2], Integer.parseInt(parts[3]), parts[4]), new Medico(Integer.parseInt(parts[5]), parts[6], new Especialidad(Integer.parseInt(parts[7]), parts[8])), new Fecha(parts[9]));
     }
 
     @Override

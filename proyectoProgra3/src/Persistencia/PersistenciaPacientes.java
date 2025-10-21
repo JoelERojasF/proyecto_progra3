@@ -37,8 +37,8 @@ public class PersistenciaPacientes {
             List<String> lineas = Files.readAllLines(Paths.get(ARCHIVO_PACIENTES));
             for (String linea : lineas) {
                 Paciente paciente = new Paciente();
-                paciente.fromString(linea);
-                if (paciente != null) {
+                paciente = paciente.fromString(linea);
+                if (paciente.getId() != 0) {
                     pacientes.add(paciente);
                 }
             }
