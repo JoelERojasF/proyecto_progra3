@@ -4,6 +4,10 @@
  */
 package GUI;
 
+import Entidades.EquipoMedico;
+import Persistencia.PersistenciaFachada;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -11,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  * @author le0jx
  */
 public class panelListarEquipo extends javax.swing.JPanel {
-
+    PersistenciaFachada persistencia = new PersistenciaFachada();
     /**
      * Creates new form panelListarPacientes
      */
@@ -42,11 +46,15 @@ public class panelListarEquipo extends javax.swing.JPanel {
         jCheckBoxId = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
 
+        jTextFieldBuscarId.setEditable(false);
+
         jLabel1.setText("id");
 
         jLabel2.setText("nombre");
 
         jLabel3.setText("cantidad");
+
+        jTextFieldBuscarNombre.setText(" ");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -74,6 +82,11 @@ public class panelListarEquipo extends javax.swing.JPanel {
         });
 
         jCheckBoxId.setText("buscar por id");
+        jCheckBoxId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxIdActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("inventario equipo medico");
 
@@ -82,26 +95,24 @@ public class panelListarEquipo extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldBuscarId, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                    .addComponent(jTextFieldBuscarNombre)
+                    .addComponent(jTextFieldBuscarCantidad))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(19, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldBuscarId, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                            .addComponent(jTextFieldBuscarNombre)
-                            .addComponent(jTextFieldBuscarCantidad))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botonBuscar)
-                            .addComponent(jCheckBoxId))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(botonBuscar)
+                    .addComponent(jCheckBoxId))
+                .addGap(172, 172, 172))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -118,7 +129,7 @@ public class panelListarEquipo extends javax.swing.JPanel {
                     .addComponent(jTextFieldBuscarId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jCheckBoxId))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextFieldBuscarNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -127,7 +138,7 @@ public class panelListarEquipo extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(jTextFieldBuscarCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonBuscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -138,26 +149,42 @@ public class panelListarEquipo extends javax.swing.JPanel {
            DefaultTableModel model= (DefaultTableModel) jTable1.getModel();
            model.setRowCount(0);
            
-           
-        if(jTextFieldBuscarId.getText().isBlank() && jTextFieldBuscarNombre.getText().isBlank() && jTextFieldBuscarCantidad.getText().isBlank()){
-        model.addRow(new Object[]{"001", "Estetoscopio", "22"});
-        model.addRow(new Object[]{"002", "Termómetro", "35"});
-        model.addRow(new Object[]{"003", "Otoscopio", "27"});
-        }else{
-        if(!jTextFieldBuscarId.getText().isBlank()){
-        model.addRow(new Object[]{"001", "Estetoscopio", "22"});
-        }
-        if(!jTextFieldBuscarNombre.getText().isBlank()){
-        model.addRow(new Object[]{"002", "Termómetro", "35"});
-        }
-        if(!jTextFieldBuscarCantidad.getText().isBlank()){
-        model.addRow(new Object[]{"003", "Otoscopio", "27"});
-        }
-        }
-        
-        
-        
+           try{
+               if(jCheckBoxId.isSelected()){
+               EquipoMedico e = persistencia.obtenerEquipoMedicoPorId(Integer.parseInt(jTextFieldBuscarId.getText()));
+               model.addRow(new Object[]{e.getId(), e.getNombre(), e.getCantidad()});
+               }else{
+                   int cantidad = 0;
+                   if(!jTextFieldBuscarCantidad.getText().isBlank()){
+                   cantidad =Integer.parseInt(jTextFieldBuscarCantidad.getText());
+                   }
+                   
+                List<EquipoMedico> lista = persistencia.listarEquiposMedicos(jTextFieldBuscarNombre.getText(), cantidad);
+                for(int i = 0; i < lista.size(); i++){
+                    model.addRow(new Object[]{lista.get(i).getId(),lista.get(i).getNombre(),lista.get(i).getCantidad()});
+                }
+               }
+           }catch(Exception e){
+           JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
+           }
     }//GEN-LAST:event_botonBuscarActionPerformed
+
+    private void jCheckBoxIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxIdActionPerformed
+        // TODO add your handling code here:
+        if(!jCheckBoxId.isSelected()){
+        jTextFieldBuscarId.setText("");
+        jTextFieldBuscarId.setEditable(false);
+        jTextFieldBuscarCantidad.setEditable(true);
+        jTextFieldBuscarNombre.setEditable(true);
+        
+        }else{
+        jTextFieldBuscarId.setEditable(true);
+        jTextFieldBuscarCantidad.setText("");
+        jTextFieldBuscarNombre.setText("");
+        jTextFieldBuscarCantidad.setEditable(false);
+        jTextFieldBuscarNombre.setEditable(false);
+        }
+    }//GEN-LAST:event_jCheckBoxIdActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

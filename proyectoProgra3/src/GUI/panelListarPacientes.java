@@ -4,6 +4,10 @@
  */
 package GUI;
 
+import Entidades.Paciente;
+import Persistencia.PersistenciaFachada;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -11,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  * @author le0jx
  */
 public class panelListarPacientes extends javax.swing.JPanel {
-
+    PersistenciaFachada persistencia = new PersistenciaFachada();
     /**
      * Creates new form panelListarPacientes
      */
@@ -36,14 +40,12 @@ public class panelListarPacientes extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jTextFieldBuscarEdadDesde = new javax.swing.JTextField();
         jTextFieldBuscarEdadHasta = new javax.swing.JTextField();
-        jCheckBoxBuscarDireccion = new javax.swing.JCheckBox();
-        jCheckBoxBuscarEdad = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         botonBuscar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
-        jTextFieldBuscarDireccion.setEditable(false);
+        jTextFieldBuscarDireccion.setText(" ");
 
         jLabel1.setText("direccion:");
 
@@ -51,23 +53,9 @@ public class panelListarPacientes extends javax.swing.JPanel {
 
         jLabel3.setText("hasta:");
 
-        jTextFieldBuscarEdadDesde.setEditable(false);
+        jTextFieldBuscarEdadDesde.setText(" ");
 
-        jTextFieldBuscarEdadHasta.setEditable(false);
-
-        jCheckBoxBuscarDireccion.setText("buscar por direccion");
-        jCheckBoxBuscarDireccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxBuscarDireccionActionPerformed(evt);
-            }
-        });
-
-        jCheckBoxBuscarEdad.setText("buscar por rango de edad");
-        jCheckBoxBuscarEdad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxBuscarEdadActionPerformed(evt);
-            }
-        });
+        jTextFieldBuscarEdadHasta.setText(" ");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -118,10 +106,8 @@ public class panelListarPacientes extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(botonBuscar)
-                    .addComponent(jCheckBoxBuscarEdad)
-                    .addComponent(jCheckBoxBuscarDireccion))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botonBuscar))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,13 +117,11 @@ public class panelListarPacientes extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldBuscarDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jCheckBoxBuscarDireccion))
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextFieldBuscarEdadDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBoxBuscarEdad))
+                    .addComponent(jTextFieldBuscarEdadDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -149,60 +133,33 @@ public class panelListarPacientes extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBoxBuscarDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxBuscarDireccionActionPerformed
-        // TODO add your handling code here:
-        if(!jCheckBoxBuscarDireccion.isSelected()){
-        jTextFieldBuscarDireccion.setText("");
-        jTextFieldBuscarDireccion.setEditable(false);
-        }else{
-        jTextFieldBuscarDireccion.setEditable(true);
-        }
-    }//GEN-LAST:event_jCheckBoxBuscarDireccionActionPerformed
-
-    private void jCheckBoxBuscarEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxBuscarEdadActionPerformed
-        // TODO add your handling code here:
-        if(!jCheckBoxBuscarEdad.isSelected()){
-        jTextFieldBuscarEdadDesde.setText("");
-        jTextFieldBuscarEdadHasta.setText("");
-        jTextFieldBuscarEdadDesde.setEditable(false);
-        jTextFieldBuscarEdadHasta.setEditable(false);
-        }else{
-        jTextFieldBuscarEdadDesde.setEditable(true);
-        jTextFieldBuscarEdadHasta.setEditable(true);
-        }
-    }//GEN-LAST:event_jCheckBoxBuscarEdadActionPerformed
-
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         // TODO add your handling code here:
            DefaultTableModel model= (DefaultTableModel) jTable1.getModel();
            model.setRowCount(0);
            
-           
-        if(jTextFieldBuscarDireccion.getText().isBlank() && jTextFieldBuscarEdadDesde.getText().isBlank() && jTextFieldBuscarEdadHasta.getText().isBlank()){
-        model.addRow(new Object[]{"001", "juan perez", "22", "calle inventada 123"});
-        model.addRow(new Object[]{"002", "jose lopez", "35", "calle falsa 321"});
-        model.addRow(new Object[]{"003", "maria jimenez", "27", "calle inexistente 312"});
-        }else{
-        if(!jTextFieldBuscarDireccion.getText().isBlank()){
-        model.addRow(new Object[]{"002", "jose lopez", "35", "calle falsa 321"});
-        }
-        if(!jTextFieldBuscarEdadDesde.getText().isBlank()){
-        model.addRow(new Object[]{"001", "juan perez", "22", "calle inventada 123"});
-        }
-        if(!jTextFieldBuscarEdadHasta.getText().isBlank()){
-        model.addRow(new Object[]{"003", "maria jimenez", "27", "calle inexistente 312"});
-        }
-        }
-        
-        
-        
+           try{
+               int desde=0;
+               int hasta=0;
+               if(!jTextFieldBuscarEdadDesde.getText().isBlank()){
+               desde = Integer.parseInt(jTextFieldBuscarEdadDesde.getText());
+               }
+               if(!jTextFieldBuscarEdadHasta.getText().isBlank()){
+               hasta = Integer.parseInt(jTextFieldBuscarEdadHasta.getText());
+               }
+               
+           List<Paciente> lista = persistencia.listarPacientes(jTextFieldBuscarDireccion.getText(), desde, hasta);
+           for(int i = 0; i < lista.size(); i++){
+               model.addRow(new Object[]{lista.get(i).getId(),lista.get(i).getNombre(),lista.get(i).getEdad(), lista.get(i).getDireccion()});
+           }
+           }catch(Exception e){
+           JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
+           }
     }//GEN-LAST:event_botonBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscar;
-    private javax.swing.JCheckBox jCheckBoxBuscarDireccion;
-    private javax.swing.JCheckBox jCheckBoxBuscarEdad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

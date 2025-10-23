@@ -42,7 +42,7 @@ public class PersistenciaFachada implements IPersistenciaFachada{
         }else{
             int id = 1;
             while(persistenciaPacientes.obtenerPacientePorID(id) != null){
-            id = id++;
+            id++;
             }
             Paciente p = new Paciente(id, nombre, edad, direccion);
         persistenciaPacientes.agregarPaciente(p);
@@ -128,7 +128,7 @@ public class PersistenciaFachada implements IPersistenciaFachada{
         }else{
             int id = 1;
             while(persistenciaMedicos.obtenerMedicoPorId(id) != null){
-            id = id++;
+            id++;
             }
             Medico m = new Medico(id,nombre,especialidad);
             persistenciaMedicos.agregarMedico(m);
@@ -174,7 +174,7 @@ public class PersistenciaFachada implements IPersistenciaFachada{
         }else{
             int id = 1;
             while(persistenciaEspecialidades.obtenerEspecialidadPorId(id) != null){
-            id = id++;
+            id++;
             }
             Especialidad e = new Especialidad(id, nombre);
         persistenciaEspecialidades.agregarEspecialidad(e);
@@ -210,7 +210,7 @@ public class PersistenciaFachada implements IPersistenciaFachada{
         }else{
             int id = 1;
             while(persistenciaInventarios.obtenerInventarioPorId(id) != null){
-            id = id++;
+            id++;
             }
             EquipoMedico e = new EquipoMedico(id, nombre, cantidad);
         persistenciaInventarios.agregarInventario(e);
@@ -276,7 +276,7 @@ public class PersistenciaFachada implements IPersistenciaFachada{
         }else{
             int id = 1;
             while(persistenciaConsultas.obtenerConsultaPorId(id) != null){
-            id = id++;
+            id++;
             }
             Consulta c = new Consulta(id, paciente, medico, fecha);
         persistenciaConsultas.agregarConsulta(c);

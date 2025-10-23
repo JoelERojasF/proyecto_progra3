@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import Entidades.Consulta;
+import Persistencia.PersistenciaFachada;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author le0jx
  */
 public class panelEliminarConsulta extends javax.swing.JPanel {
-
+    PersistenciaFachada persistencia = new PersistenciaFachada();
     /**
      * Creates new form panelConsultarPacientes
      */
@@ -133,27 +135,30 @@ public class panelEliminarConsulta extends javax.swing.JPanel {
         jTextFieldNombrePaciente.setText("");
         jTextFieldNombreMedico.setText("");
         jTextFieldFecha.setText("");
+        try{
         if(!jTextFieldId.getText().isBlank()){
-        jTextFieldNombrePaciente.setText("Juan Perez");
-        jTextFieldNombreMedico.setText("Stephen Vincent Strange");
-        jTextFieldFecha.setText("25/09/2025");
-        }else{
-            JOptionPane.showMessageDialog(this, "la consulta no existe", "consulta no encontrada", JOptionPane.INFORMATION_MESSAGE);
+            Consulta c = persistencia.obtenerConsultaPorId(Integer.parseInt(jTextFieldId.getText()));
+            jTextFieldNombrePaciente.setText(c.getPaciente().getNombre());
+            jTextFieldNombreMedico.setText(c.getMedico().getNombre());
+            jTextFieldFecha.setText(c.getFecha().toString());
+        }
+        }catch(Exception e){
+        JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "seguro que quiere eliminar a esta consulta?", "eliminar consulta", JOptionPane.INFORMATION_MESSAGE);
-        if(jTextFieldId.getText().isBlank() || jTextFieldNombrePaciente.getText().isBlank() || jTextFieldNombreMedico.getText().isBlank() || jTextFieldFecha.getText().isBlank()){
-        JOptionPane.showMessageDialog(this, "datos incompletos", "Error", JOptionPane.INFORMATION_MESSAGE);
-        }else{
-            jTextFieldId.setText("");
-            jTextFieldNombrePaciente.setText("");
-            jTextFieldNombreMedico.setText("");
-            jTextFieldFecha.setText("");
-            JOptionPane.showMessageDialog(this, "consulta eliminada con exito", "consulta eliminada", JOptionPane.INFORMATION_MESSAGE);}
-        
+        try{
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar esta consulta?", "Confirmar elimiinacion", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            
+            if (opcion == JOptionPane.YES_OPTION) {
+            persistencia.eliminarConsulta(Integer.parseInt(jTextFieldId.getText()));
+            JOptionPane.showMessageDialog(this, "consulta eliminada con exito", "consulta eliminada", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }catch(Exception e){
+        JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_BotonEliminarActionPerformed
 
 

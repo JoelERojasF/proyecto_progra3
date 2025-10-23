@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import Entidades.EquipoMedico;
+import Persistencia.PersistenciaFachada;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author le0jx
  */
 public class panelInventariarEquipo extends javax.swing.JPanel {
-
+    PersistenciaFachada persistencia = new PersistenciaFachada();
     /**
      * Creates new form panelConsultarPacientes
      */
@@ -53,6 +55,7 @@ public class panelInventariarEquipo extends javax.swing.JPanel {
         jTextFieldNombre.setEditable(false);
 
         jTextFieldCantidad.setEditable(false);
+        jTextFieldCantidad.setText("0");
 
         jLabel3.setText("nombre");
 
@@ -68,6 +71,11 @@ public class panelInventariarEquipo extends javax.swing.JPanel {
         jLabel2.setText("cantidad a agregar");
 
         jCheckBoxNuevo.setText("Nuevo equipo");
+        jCheckBoxNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxNuevoActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("inventariar equipo medico");
 
@@ -135,26 +143,57 @@ public class panelInventariarEquipo extends javax.swing.JPanel {
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         // TODO add your handling code here:
-        jTextFieldNombre.setEditable(false);
-        jTextFieldNombre.setText("");
+         jTextFieldNombre.setText("");
         jTextFieldCantidad.setText("");
+        try{
         if(!jTextFieldId.getText().isBlank()){
-        jTextFieldNombre.setText("Estetoscopio");
-        jTextFieldCantidad.setText("22");
-        }else{
-        jTextFieldNombre.setEditable(true);
-        jTextFieldNombre.setText("objeto nuevo");
-        jTextFieldCantidad.setText("0");
+            EquipoMedico e = persistencia.obtenerEquipoMedicoPorId(Integer.parseInt(jTextFieldId.getText()));
+            jTextFieldNombre.setText(e.getNombre());
+            jTextFieldCantidad.setText(e.getCantidad()+"");
+        }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void BotonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAgregarActionPerformed
         // TODO add your handling code here:
+         try{
         if(jTextFieldNombre.getText().isBlank() || jTextFieldCantidad.getText().isBlank() || jTextFieldCantidadAñadir.getText().isBlank()){
         JOptionPane.showMessageDialog(this, "datos incompletos", "Error", JOptionPane.INFORMATION_MESSAGE);
-        }else{JOptionPane.showMessageDialog(this, "equipo medico agregado con exito", "equipo agregado", JOptionPane.INFORMATION_MESSAGE);}
-        
+        }else{
+            if(jCheckBoxNuevo.isSelected()){
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas agregar este equipo al inventario?", "Confirmar inventariado", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+           if (opcion == JOptionPane.YES_OPTION) {
+            persistencia.agregarEquipoMedico(jTextFieldNombre.getText(), Integer.parseInt(jTextFieldCantidad.getText()) + Integer.parseInt(jTextFieldCantidadAñadir.getText()));
+            JOptionPane.showMessageDialog(this, "equipo medico añadido con exito", "equipo añadido", JOptionPane.INFORMATION_MESSAGE);
+            }
+            }
+            
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas añadir esa cantidad del inventario?", "Confirmar inventariado", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            
+            if (opcion == JOptionPane.YES_OPTION) {
+            persistencia.actualizarCantidadEquipo(Integer.parseInt(jTextFieldId.getText()), Integer.parseInt(jTextFieldCantidad.getText()) + Integer.parseInt(jTextFieldCantidadAñadir.getText()));
+            JOptionPane.showMessageDialog(this, "equipo medico añadido con exito", "equipo añadido", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+        }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_BotonAgregarActionPerformed
+
+    private void jCheckBoxNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxNuevoActionPerformed
+        // TODO add your handling code here:
+        if(!jCheckBoxNuevo.isSelected()){
+        jTextFieldNombre.setText("");
+        jTextFieldCantidad.setText("0");
+        jTextFieldNombre.setEditable(false);
+        
+        }else{
+        jTextFieldNombre.setEditable(true);
+        }
+    }//GEN-LAST:event_jCheckBoxNuevoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

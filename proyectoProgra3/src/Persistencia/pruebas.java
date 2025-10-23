@@ -26,21 +26,18 @@ public class pruebas {
         Paciente p3 = new Paciente(3, "vicente", 22, "calle inventada 125");
         Paciente p4 = new Paciente(4, "manuel", 23, "calle inventada 126");
         
-        Especialidad e1 = new Especialidad(1,"neuro cirujano");
+        Especialidad e1 = new Especialidad(1,"Neurologia");
+        Especialidad e2 = new Especialidad(2,"Cardiologia");
+        Especialidad e3 = new Especialidad(3,"Oftalmologia");
+        Especialidad e4 = new Especialidad(4,"Pediatria");
+        Especialidad e5 = new Especialidad(5,"Onclologia");
         
-        Medico m1 = new Medico(1, "house", e1);
-        Fecha f1 = new Fecha();
-        
-        Consulta c1 = new Consulta(1, p1, m1, f1);
-        Consulta c2 = new Consulta(2, p2, m1, f1);
-        Consulta c3 = new Consulta(3, p3, m1, f1);
-        
-        
-        PersistenciaConsultas pc = new PersistenciaConsultas();
-        
-        PersistenciaPacientes pp = new PersistenciaPacientes();
-        
-        System.out.println(pp.listarPacientes());
+        PersistenciaEspecialidades pe = new PersistenciaEspecialidades();
+        pe.agregarEspecialidad(e1);
+        pe.agregarEspecialidad(e2);
+        pe.agregarEspecialidad(e3);
+        pe.agregarEspecialidad(e4);
+        pe.agregarEspecialidad(e5);
         
     }
     

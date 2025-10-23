@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import Entidades.EquipoMedico;
+import Persistencia.PersistenciaFachada;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author le0jx
  */
 public class panelDesinventariarEquipo extends javax.swing.JPanel {
-
+    PersistenciaFachada persistencia = new PersistenciaFachada();
     /**
      * Creates new form panelConsultarPacientes
      */
@@ -36,7 +38,7 @@ public class panelDesinventariarEquipo extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         BotonEliminar = new javax.swing.JButton();
-        jTextFieldCantidadAñadir = new javax.swing.JTextField();
+        jTextFieldCantidadEliminar = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
@@ -88,7 +90,7 @@ public class panelDesinventariarEquipo extends javax.swing.JPanel {
                                     .addComponent(jTextFieldCantidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextFieldId, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldCantidadAñadir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+                                    .addComponent(jTextFieldCantidadEliminar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(botonBuscar))
                             .addGroup(layout.createSequentialGroup()
@@ -119,7 +121,7 @@ public class panelDesinventariarEquipo extends javax.swing.JPanel {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldCantidadAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldCantidadEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addComponent(BotonEliminar)
@@ -131,20 +133,39 @@ public class panelDesinventariarEquipo extends javax.swing.JPanel {
         // TODO add your handling code here:
         jTextFieldNombre.setText("");
         jTextFieldCantidad.setText("");
+        try{
         if(!jTextFieldId.getText().isBlank()){
-        jTextFieldNombre.setText("Estetoscopio");
-        jTextFieldCantidad.setText("22");
-        }else{
-            JOptionPane.showMessageDialog(this, "el equipo medico no existe", "equipo no encontrado", JOptionPane.INFORMATION_MESSAGE);
+            EquipoMedico e = persistencia.obtenerEquipoMedicoPorId(Integer.parseInt(jTextFieldId.getText()));
+            jTextFieldNombre.setText(e.getNombre());
+            jTextFieldCantidad.setText(e.getCantidad()+"");
+        }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
         // TODO add your handling code here:
-        if(jTextFieldNombre.getText().isBlank() || jTextFieldCantidad.getText().isBlank() || jTextFieldCantidadAñadir.getText().isBlank()){
+        try{
+        if(jTextFieldNombre.getText().isBlank() || jTextFieldCantidad.getText().isBlank() || jTextFieldCantidadEliminar.getText().isBlank()){
         JOptionPane.showMessageDialog(this, "datos incompletos", "Error", JOptionPane.INFORMATION_MESSAGE);
-        }else{JOptionPane.showMessageDialog(this, "equipo medico eliminado con exito", "equipo eliminado", JOptionPane.INFORMATION_MESSAGE);}
-        
+        }else{
+           
+            
+            if(Integer.parseInt(jTextFieldCantidadEliminar.getText()) > Integer.parseInt(jTextFieldCantidad.getText())){
+            JOptionPane.showMessageDialog(this, "se desea eliminar una mayor cantidad de lo que hay registrado", "error", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar esa cantidad del inventario?", "Confirmar desinventariado", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            
+            if (opcion == JOptionPane.YES_OPTION) {
+            persistencia.actualizarCantidadEquipo(Integer.parseInt(jTextFieldId.getText()), Integer.parseInt(jTextFieldCantidad.getText()) - Integer.parseInt(jTextFieldCantidadEliminar.getText()));
+            JOptionPane.showMessageDialog(this, "equipo medico eliminado con exito", "equipo eliminado", JOptionPane.INFORMATION_MESSAGE);
+            }
+            }
+        }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_BotonEliminarActionPerformed
 
 
@@ -157,7 +178,7 @@ public class panelDesinventariarEquipo extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField jTextFieldCantidad;
-    private javax.swing.JTextField jTextFieldCantidadAñadir;
+    private javax.swing.JTextField jTextFieldCantidadEliminar;
     private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables

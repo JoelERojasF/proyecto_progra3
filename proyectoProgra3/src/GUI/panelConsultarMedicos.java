@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import Entidades.Medico;
+import Persistencia.PersistenciaFachada;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,7 +13,8 @@ import javax.swing.JOptionPane;
  * @author le0jx
  */
 public class panelConsultarMedicos extends javax.swing.JPanel {
-
+    PersistenciaFachada persistencia = new PersistenciaFachada();
+    
     /**
      * Creates new form panelConsultarPacientes
      */
@@ -108,11 +111,14 @@ public class panelConsultarMedicos extends javax.swing.JPanel {
         // TODO add your handling code here:
         jTextFieldNombre.setText("");
         jTextFieldEspecialidad.setText("");
+        try{
         if(!jTextFieldId.getText().isBlank()){
-        jTextFieldNombre.setText("Stephen Vincent Strange");
-        jTextFieldEspecialidad.setText("neurocirujano");
-        }else{
-            JOptionPane.showMessageDialog(this, "el medico no existe", "medico no encontrado", JOptionPane.INFORMATION_MESSAGE);
+            Medico m = persistencia.obtenerMedicoPorId(Integer.parseInt(jTextFieldId.getText()));
+            jTextFieldNombre.setText(m.getNombre());
+            jTextFieldEspecialidad.setText(m.getEspecialidad().getNombre());
+        }
+        }catch(Exception e){
+        JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonBuscarActionPerformed
 

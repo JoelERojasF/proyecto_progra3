@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import Entidades.Paciente;
+import Persistencia.PersistenciaFachada;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,6 +13,7 @@ import javax.swing.JOptionPane;
  * @author le0jx
  */
 public class panelActualizarPacientes extends javax.swing.JPanel {
+    PersistenciaFachada persistencia = new PersistenciaFachada();
 
     /**
      * Creates new form panelConsultarPacientes
@@ -127,11 +130,15 @@ public class panelActualizarPacientes extends javax.swing.JPanel {
         jTextFieldEdad.setText("");
         jTextFieldDireccion.setText("");
         if(!jTextFieldId.getText().isBlank()){
-        jTextFieldNombre.setText("Juan Perez");
-        jTextFieldEdad.setText("22");
-        jTextFieldDireccion.setText("calle inventada 123");
-        }else{
-            JOptionPane.showMessageDialog(this, "el paciente no existe", "paciente no encontrado", JOptionPane.INFORMATION_MESSAGE);
+            try{
+            Paciente p = persistencia.obtenerPacientePorId(Integer.parseInt(jTextFieldId.getText()));
+            jTextFieldNombre.setText(p.getNombre());
+            jTextFieldEdad.setText(p.getEdad() + "");
+            jTextFieldDireccion.setText(p.getDireccion());
+            
+            }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_botonBuscarActionPerformed
 
@@ -139,7 +146,20 @@ public class panelActualizarPacientes extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(jTextFieldId.getText().isBlank() || jTextFieldNombre.getText().isBlank() || jTextFieldEdad.getText().isBlank() || jTextFieldDireccion.getText().isBlank()){
         JOptionPane.showMessageDialog(this, "datos incompletos", "Error", JOptionPane.INFORMATION_MESSAGE);
-        }else{JOptionPane.showMessageDialog(this, "paciente actualizado con exito", "paciente actualizado", JOptionPane.INFORMATION_MESSAGE);}
+        }
+        else{
+            try{
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas actualizar este paciente?", "Confirmar actualizacion", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            
+            if (opcion == JOptionPane.YES_OPTION) {
+            persistencia.actualizarPaciente(Integer.parseInt(jTextFieldId.getText()), jTextFieldNombre.getText(), Integer.parseInt(jTextFieldEdad.getText()), jTextFieldDireccion.getText());
+            JOptionPane.showMessageDialog(this, "paciente actualizado con exito", "paciente actualizado", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
         
     }//GEN-LAST:event_BotonActualizarActionPerformed
 

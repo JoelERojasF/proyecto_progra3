@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import Entidades.Paciente;
+import Persistencia.PersistenciaFachada;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author le0jx
  */
 public class panelEliminarPacientes extends javax.swing.JPanel {
-
+    PersistenciaFachada persistencia = new PersistenciaFachada();
     /**
      * Creates new form panelConsultarPacientes
      */
@@ -134,25 +136,33 @@ public class panelEliminarPacientes extends javax.swing.JPanel {
         jTextFieldEdad.setText("");
         jTextFieldDireccion.setText("");
         if(!jTextFieldId.getText().isBlank()){
-        jTextFieldNombre.setText("Juan Perez");
-        jTextFieldEdad.setText("22");
-        jTextFieldDireccion.setText("calle inventada 123");
-        }else{
-            JOptionPane.showMessageDialog(this, "el paciente no existe", "paciente no encontrado", JOptionPane.INFORMATION_MESSAGE);
+            try{
+            Paciente p = persistencia.obtenerPacientePorId(Integer.parseInt(jTextFieldId.getText()));
+            jTextFieldNombre.setText(p.getNombre());
+            jTextFieldEdad.setText(p.getEdad() + "");
+            jTextFieldDireccion.setText(p.getDireccion());
+            
+            }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "seguro que quiere eliminar a este paciente?", "eliminar paciente", JOptionPane.INFORMATION_MESSAGE);
-        if(jTextFieldId.getText().isBlank() || jTextFieldNombre.getText().isBlank() || jTextFieldEdad.getText().isBlank() || jTextFieldDireccion.getText().isBlank()){
-        JOptionPane.showMessageDialog(this, "datos incompletos", "Error", JOptionPane.INFORMATION_MESSAGE);
-        }else{
-            jTextFieldId.setText("");
-            jTextFieldNombre.setText("");
-            jTextFieldEdad.setText("");
-            jTextFieldDireccion.setText("");
-            JOptionPane.showMessageDialog(this, "paciente eliminado con exito", "paciente eliminado", JOptionPane.INFORMATION_MESSAGE);}
+        
+ 
+            try{
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar este paciente?", "Confirmar elimiinacion", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            
+            if (opcion == JOptionPane.YES_OPTION) {
+            persistencia.eliminarPaciente(Integer.parseInt(jTextFieldId.getText()));
+            JOptionPane.showMessageDialog(this, "paciente eliminado con exito", "paciente eliminado", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
+            }
         
     }//GEN-LAST:event_BotonEliminarActionPerformed
 

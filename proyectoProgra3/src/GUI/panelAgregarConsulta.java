@@ -4,7 +4,11 @@
  */
 package GUI;
 
+import Entidades.Medico;
+import Entidades.Paciente;
+import Persistencia.PersistenciaFachada;
 import javax.swing.JOptionPane;
+import objetosServicio.Fecha;
 
 
 /**
@@ -12,6 +16,7 @@ import javax.swing.JOptionPane;
  * @author le0jx
  */
 public class panelAgregarConsulta extends javax.swing.JPanel {
+    PersistenciaFachada persistencia = new PersistenciaFachada();
 
     
     /**
@@ -212,9 +217,24 @@ public class panelAgregarConsulta extends javax.swing.JPanel {
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
         // TODO add your handling code here:
-        if(jTextFieldIdPaciente.getText().isBlank() || jTextFieldIdMedico.getText().isBlank() || jTextFieldFechaDia.getText().isBlank()){
+        if(jTextFieldIdPaciente.getText().isBlank() || jTextFieldIdMedico.getText().isBlank() || jTextFieldFechaDia.getText().isBlank() || jTextFieldFechaMes.getText().isBlank() || jTextFieldFechaAnio.getText().isBlank()){
         JOptionPane.showMessageDialog(this, "datos incompletos", "Error", JOptionPane.INFORMATION_MESSAGE);
-        }else{JOptionPane.showMessageDialog(this, "consulta agendada con exito", "consulta agendada", JOptionPane.INFORMATION_MESSAGE);}
+        }
+        else{
+            try{
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas crear esta consulta?", "Confirmar creacion de consulta", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            
+            if (opcion == JOptionPane.YES_OPTION) {
+            Paciente p = persistencia.obtenerPacientePorId(Integer.parseInt(jTextFieldIdPaciente.getText()));
+            Medico m = persistencia.obtenerMedicoPorId(Integer.parseInt(jTextFieldIdMedico.getText()));
+            Fecha f = new Fecha(Integer.parseInt(jTextFieldFechaDia.getText()), Integer.parseInt(jTextFieldFechaMes.getText()), Integer.parseInt(jTextFieldFechaAnio.getText()));
+            persistencia.agregarConsulta(p, m, f);
+            JOptionPane.showMessageDialog(this, "consulta del paciente: " +p.toString()+ " con el medico: " + m.toString()+ " el dia: " + f.toString() +" fue registrada con exito", "consulta registrada", JOptionPane.INFORMATION_MESSAGE);
+            }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
         
         
     }//GEN-LAST:event_botonAgregarActionPerformed
@@ -225,11 +245,15 @@ public class panelAgregarConsulta extends javax.swing.JPanel {
         jTextFieldEdadPaciente.setText("");
         jTextFieldDireccionPaciente.setText("");
         if(!jTextFieldIdPaciente.getText().isBlank()){
-            jTextFieldNombrePaciente.setText("Juan Perez");
-            jTextFieldEdadPaciente.setText("22");
-            jTextFieldDireccionPaciente.setText("calle inventada 123");
-        }else{
-            JOptionPane.showMessageDialog(this, "el paciente no existe", "paciente no encontrado", JOptionPane.INFORMATION_MESSAGE);
+            try{
+            Paciente p = persistencia.obtenerPacientePorId(Integer.parseInt(jTextFieldIdPaciente.getText()));
+            jTextFieldNombrePaciente.setText(p.getNombre());
+            jTextFieldEdadPaciente.setText(p.getEdad() + "");
+            jTextFieldDireccionPaciente.setText(p.getDireccion());
+            
+            }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_botonBuscarPacienteActionPerformed
 
@@ -238,10 +262,13 @@ public class panelAgregarConsulta extends javax.swing.JPanel {
         jTextFieldNombreMedico.setText("");
         jTextFieldEspecialidadMedico.setText("");
         if(!jTextFieldIdMedico.getText().isBlank()){
-            jTextFieldNombreMedico.setText("Stephen Vincent Strange");
-            jTextFieldEspecialidadMedico.setText("neurocirujano");
-        }else{
-            JOptionPane.showMessageDialog(this, "el medico no existe", "medico no encontrado", JOptionPane.INFORMATION_MESSAGE);
+            try{
+            Medico m = persistencia.obtenerMedicoPorId(Integer.parseInt(jTextFieldIdMedico.getText()));
+            jTextFieldNombreMedico.setText(m.getNombre());
+            jTextFieldEspecialidadMedico.setText(m.getEspecialidad().getNombre());
+            }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_botonBuscarMedicoActionPerformed
 

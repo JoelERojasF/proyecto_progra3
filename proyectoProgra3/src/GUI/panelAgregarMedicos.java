@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import Entidades.Especialidad;
+import Persistencia.PersistenciaFachada;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 
@@ -12,13 +15,23 @@ import javax.swing.JOptionPane;
  * @author le0jx
  */
 public class panelAgregarMedicos extends javax.swing.JPanel {
-
+    PersistenciaFachada persistencia = new PersistenciaFachada();
+    
     
     /**
      * Creates new form panelPacientes
      */
     public panelAgregarMedicos() {
         initComponents();
+        try{
+        List<Especialidad> listaEspecialidades = persistencia.listarEspecialidades();
+        for(int i = 0; i < listaEspecialidades.size(); i++){
+        jComboBoxEspecialidades.addItem(listaEspecialidades.get(i));
+        }
+        }catch(Exception e){
+        JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
+
+        }
     }
     
     /**
@@ -47,8 +60,6 @@ public class panelAgregarMedicos extends javax.swing.JPanel {
                 botonAgregarActionPerformed(evt);
             }
         });
-
-        jComboBoxEspecialidades.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel1.setText("agregar medico");
 
@@ -96,17 +107,23 @@ public class panelAgregarMedicos extends javax.swing.JPanel {
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
         // TODO add your handling code here:
-//        if(jTextFieldNombre.getText().isBlank() || jTextFieldEspecialidad.getText().isBlank()){
-//        JOptionPane.showMessageDialog(this, "datos incompletos", "Error", JOptionPane.INFORMATION_MESSAGE);
-//        }else{JOptionPane.showMessageDialog(this, "medico agregado con exito", "medico agregado", JOptionPane.INFORMATION_MESSAGE);}
-//        
+        try{
+            if(jTextFieldNombre.getText().isBlank() || jComboBoxEspecialidades.getSelectedItem() == null){
+        JOptionPane.showMessageDialog(this, "datos incompletos", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+        persistencia.agregarMedico(jTextFieldNombre.getText(), (Especialidad) jComboBoxEspecialidades.getSelectedItem());
+        JOptionPane.showMessageDialog(this, "medico agregado con exito", "medico agregado", JOptionPane.INFORMATION_MESSAGE);
+        }
+        }catch(Exception e){
+        JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
+        }
         
     }//GEN-LAST:event_botonAgregarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregar;
-    private javax.swing.JComboBox<String> jComboBoxEspecialidades;
+    private javax.swing.JComboBox<Especialidad> jComboBoxEspecialidades;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

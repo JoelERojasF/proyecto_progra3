@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import Entidades.Paciente;
+import Persistencia.PersistenciaFachada;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author le0jx
  */
 public class panelConsultarPacientes extends javax.swing.JPanel {
-
+    PersistenciaFachada persistencia = new PersistenciaFachada();
     /**
      * Creates new form panelConsultarPacientes
      */
@@ -118,12 +120,15 @@ public class panelConsultarPacientes extends javax.swing.JPanel {
         jTextFieldNombre.setText("");
         jTextFieldEdad.setText("");
         jTextFieldDireccion.setText("");
+        try{
         if(!jTextFieldId.getText().isBlank()){
-        jTextFieldNombre.setText("Juan Perez");
-        jTextFieldEdad.setText("22");
-        jTextFieldDireccion.setText("calle inventada 123");
-        }else{
-            JOptionPane.showMessageDialog(this, "el paciente no existe", "paciente no encontrado", JOptionPane.INFORMATION_MESSAGE);
+            Paciente p = persistencia.obtenerPacientePorId(Integer.parseInt(jTextFieldId.getText()));
+            jTextFieldNombre.setText(p.getNombre());
+            jTextFieldEdad.setText(p.getEdad()+"");
+            jTextFieldDireccion.setText(p.getDireccion());
+        }
+        }catch(Exception e){
+        JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonBuscarActionPerformed
 
