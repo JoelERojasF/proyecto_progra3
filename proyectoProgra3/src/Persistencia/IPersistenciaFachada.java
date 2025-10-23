@@ -10,6 +10,7 @@ import Entidades.Especialidad;
 import Entidades.Medico;
 import Entidades.Paciente;
 import java.util.List;
+import objetosServicio.Fecha;
 import objetosServicio.Periodo;
 
 /**
@@ -18,31 +19,31 @@ import objetosServicio.Periodo;
  */
 public interface IPersistenciaFachada {
     //pacientes
-    void agregarPaciente(Paciente paciente) throws Exception;
+    void agregarPaciente(String nombre, int edad, String direccion) throws Exception;
     Paciente obtenerPacientePorId(int id) throws Exception; 
     List<Paciente> listarPacientes(String direccion, int edadDesde, int edadHasta) throws Exception;
-    void actualizarPaciente(Paciente paciente)throws Exception;
+    void actualizarPaciente(int id,String nombre, int edad, String direccion)throws Exception;
     void eliminarPaciente(int id) throws Exception;
     
     
     //medicos
-    void agregarMedico(Medico medico) throws Exception;
+    void agregarMedico(String nombre, Especialidad especialidad) throws Exception;
     Medico obtenerMedicoPorId(int id) throws Exception;
-    List<Medico> listarMedicos(String nombre, Especialidad especialidad) throws Exception;
+    List<Medico> listarMedicos(Especialidad especialidad) throws Exception;
     
     //especialidades
-    void agregarEspecialidad(Especialidad especialidad) throws Exception;
+    void agregarEspecialidad(String nombre) throws Exception;
     Especialidad obtenerEspecialidadPorId(int id) throws Exception;
     List<Especialidad> listarEspecialidades() throws Exception;
     
     //equipo medicos
-    void agregarEquipoMedico(EquipoMedico equipo) throws Exception;
+    void agregarEquipoMedico(String nombre, int cantidad) throws Exception;
     void actualizarCantidadEquipo(int id, int cantidad) throws Exception;
     List<EquipoMedico> listarEquiposMedicos(String nombre, int cantidad) throws Exception;
-    EquipoMedico obtenerEquipoMedicoPorId() throws Exception;
+    EquipoMedico obtenerEquipoMedicoPorId(int id) throws Exception;
     
     //consultas
-    void agregarConsulta(Consulta consulta) throws Exception;
+    void agregarConsulta(Paciente paciente, Medico medico, Fecha fecha) throws Exception;
     List<Consulta> listarConsultas(Paciente paciente, Medico medico, Periodo periodo) throws Exception;
     Consulta obtenerConsultaPorId(int id) throws Exception;
     void eliminarConsulta(int id) throws Exception;

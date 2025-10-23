@@ -35,9 +35,12 @@ public class pruebas {
         Consulta c2 = new Consulta(2, p2, m1, f1);
         Consulta c3 = new Consulta(3, p3, m1, f1);
         
-        System.out.println(c1.toString());
         
         PersistenciaConsultas pc = new PersistenciaConsultas();
+        
+        PersistenciaPacientes pp = new PersistenciaPacientes();
+        
+        System.out.println(pp.listarPacientes());
         
     }
     
