@@ -164,17 +164,17 @@ public class panelInventariarEquipo extends javax.swing.JPanel {
         }else{
             if(jCheckBoxNuevo.isSelected()){
             int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas agregar este equipo al inventario?", "Confirmar inventariado", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-           if (opcion == JOptionPane.YES_OPTION) {
+            if (opcion == JOptionPane.YES_OPTION) {
             persistencia.agregarEquipoMedico(jTextFieldNombre.getText(), Integer.parseInt(jTextFieldCantidad.getText()) + Integer.parseInt(jTextFieldCantidadAñadir.getText()));
             JOptionPane.showMessageDialog(this, "equipo medico añadido con exito", "equipo añadido", JOptionPane.INFORMATION_MESSAGE);
             }
-            }
-            
+            }else{
             int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas añadir esa cantidad del inventario?", "Confirmar inventariado", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             
             if (opcion == JOptionPane.YES_OPTION) {
             persistencia.actualizarCantidadEquipo(Integer.parseInt(jTextFieldId.getText()), Integer.parseInt(jTextFieldCantidad.getText()) + Integer.parseInt(jTextFieldCantidadAñadir.getText()));
             JOptionPane.showMessageDialog(this, "equipo medico añadido con exito", "equipo añadido", JOptionPane.INFORMATION_MESSAGE);
+            }
             }
             
         }

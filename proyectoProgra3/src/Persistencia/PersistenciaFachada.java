@@ -9,8 +9,10 @@ import Entidades.EquipoMedico;
 import Entidades.Especialidad;
 import Entidades.Medico;
 import Entidades.Paciente;
+import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import objetosServicio.Fecha;
 import objetosServicio.Periodo;
 
@@ -64,33 +66,47 @@ public class PersistenciaFachada implements IPersistenciaFachada{
     @Override
     public List<Paciente> listarPacientes(String direccion, int edadDesde, int edadHasta) throws Exception {
         List<Paciente> lista = persistenciaPacientes.listarPacientes();
-        if(lista.size() == 0){
-        throw new NoSuchElementException("ningun paciente registrado");
+
+        if (lista.isEmpty()) {
+            throw new NoSuchElementException("ningún paciente registrado");
         }
-        if ((direccion == null || direccion.isBlank()) && edadDesde <= 0 && edadHasta <= 0){
-        return lista;
+
+    // Filtros activos
+        boolean filtroDireccion = direccion != null && !direccion.isBlank();
+        boolean filtroEdadDesde = edadDesde > 0;
+        boolean filtroEdadHasta = edadHasta > 0;
+
+    // Si ningún filtro está activo, devolvemos todo
+        if (!filtroDireccion && !filtroEdadDesde && !filtroEdadHasta) {
+            return lista;
         }
-        if(direccion != null || !direccion.isBlank()){
-            for(int i=0; i > lista.size(); i++){
-                if (!lista.get(i).getDireccion().equalsIgnoreCase(direccion)){
-                    lista.remove(i);
-                }
+
+    // Ajuste automático si el rango de edades viene invertido
+        if (filtroEdadDesde && filtroEdadHasta && edadDesde > edadHasta) {
+            int tmp = edadDesde;
+            edadDesde = edadHasta;
+            edadHasta = tmp;
+        }
+
+        Iterator<Paciente> it = lista.iterator();
+        while (it.hasNext()) {
+            Paciente p = it.next();
+
+            if (filtroDireccion && !p.getDireccion().equalsIgnoreCase(direccion)) {
+                it.remove();
+                continue;
+            }
+
+            if (filtroEdadDesde && p.getEdad() < edadDesde) {
+                it.remove();
+                continue;
+            }
+
+            if (filtroEdadHasta && p.getEdad() > edadHasta) {
+                it.remove();
             }
         }
-        if(edadDesde > 0){
-        for(int i=0; i > lista.size(); i++){
-                if (lista.get(i).getEdad() < edadDesde){
-                    lista.remove(i);
-                }
-            }
-        }
-        if(edadHasta > 0){
-        for(int i=0; i > lista.size(); i++){
-                if (lista.get(i).getEdad() > edadHasta){
-                    lista.remove(i);
-                }
-            }
-        }
+
         return lista;
     }
 
@@ -233,26 +249,32 @@ public class PersistenciaFachada implements IPersistenciaFachada{
     @Override
     public List<EquipoMedico> listarEquiposMedicos(String nombre, int cantidad) throws Exception {
         List<EquipoMedico> lista = persistenciaInventarios.listarInventarios();
-        if(lista.size() == 0){
-        throw new NoSuchElementException("ningun equipo medico registrado");
+
+        if (lista.isEmpty()) {
+            throw new NoSuchElementException("ningún equipo médico registrado");
         }
-        if ((nombre == null || nombre.isBlank()) && cantidad < 0){
-        return lista;
+
+        boolean filtroNombreActivo = nombre != null && !nombre.isBlank();
+        boolean filtroCantidadActivo = cantidad >= 0;
+
+        if (!filtroNombreActivo && !filtroCantidadActivo) {
+            return lista;
         }
-        if(nombre != null || !nombre.isBlank()){
-            for(int i=0; i > lista.size(); i++){
-                if (!lista.get(i).getNombre().equalsIgnoreCase(nombre)){
-                    lista.remove(i);
-                }
-            }
+
+        Iterator<EquipoMedico> it = lista.iterator();
+        while (it.hasNext()) {
+            EquipoMedico e = it.next();
+
+        if (filtroNombreActivo && !e.getNombre().equalsIgnoreCase(nombre)) {
+            it.remove();
+            continue;
         }
-        if(cantidad >= 0){
-        for(int i=0; i > lista.size(); i++){
-                if (lista.get(i).getCantidad() != cantidad){
-                    lista.remove(i);
-                }
-            }
+
+        if (filtroCantidadActivo && e.getCantidad() != cantidad) {
+            it.remove();
         }
+        }
+
         return lista;
     }
 
@@ -286,34 +308,42 @@ public class PersistenciaFachada implements IPersistenciaFachada{
     @Override
     public List<Consulta> listarConsultas(Paciente paciente, Medico medico, Periodo periodo) throws Exception {
         List<Consulta> lista = persistenciaConsultas.listarConsultas();
-        if(lista.size() == 0){
+
+    if (lista.isEmpty()) {
         throw new NoSuchElementException("ninguna consulta registrada");
-        }
-        if (paciente == null && medico == null && periodo == null){
+    }
+
+    boolean filtrarPaciente = paciente != null;
+    boolean filtrarMedico = medico != null;
+    boolean filtrarPeriodo = periodo != null;
+
+    if (!filtrarPaciente && !filtrarMedico && !filtrarPeriodo) {
         return lista;
+    }
+
+    Iterator<Consulta> it = lista.iterator();
+    while (it.hasNext()) {
+        Consulta c = it.next();
+
+        if (filtrarPaciente && !paciente.toString().equalsIgnoreCase(c.getPaciente().toString())  ) {
+            it.remove();
+            continue;
         }
-        if(paciente != null){
-            for(int i=0; i > lista.size(); i++){
-                if (!lista.get(i).getPaciente().equals(paciente)){
-                    lista.remove(i);
-                }
+
+        if (filtrarMedico && !medico.toString().equalsIgnoreCase(c.getMedico().toString()) ) {
+            it.remove();
+            continue;
+        }
+
+        if (filtrarPeriodo) {
+            // Asumo que Periodo.tiene/contiene acepta una fecha y devuelve boolean
+            if (c.getFecha() == null || !periodo.contiene(c.getFecha())) {
+                it.remove();
             }
         }
-        if(medico != null){
-            for(int i=0; i > lista.size(); i++){
-                if (!lista.get(i).getMedico().equals(medico)){
-                    lista.remove(i);
-                }
-            }
-        }
-        if(periodo != null){
-            for(int i=0; i > lista.size(); i++){
-                if (!periodo.contiene(lista.get(i).getFecha())){
-                    lista.remove(i);
-                }
-            }
-        }
-        return lista;
+    }
+
+    return lista;
     }
 
     @Override

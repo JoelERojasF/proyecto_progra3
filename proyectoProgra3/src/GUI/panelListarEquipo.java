@@ -54,8 +54,6 @@ public class panelListarEquipo extends javax.swing.JPanel {
 
         jLabel3.setText("cantidad");
 
-        jTextFieldBuscarNombre.setText(" ");
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -154,7 +152,7 @@ public class panelListarEquipo extends javax.swing.JPanel {
                EquipoMedico e = persistencia.obtenerEquipoMedicoPorId(Integer.parseInt(jTextFieldBuscarId.getText()));
                model.addRow(new Object[]{e.getId(), e.getNombre(), e.getCantidad()});
                }else{
-                   int cantidad = 0;
+                   int cantidad = -1;
                    if(!jTextFieldBuscarCantidad.getText().isBlank()){
                    cantidad =Integer.parseInt(jTextFieldBuscarCantidad.getText());
                    }

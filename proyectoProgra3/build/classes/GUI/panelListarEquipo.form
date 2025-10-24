@@ -99,9 +99,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldBuscarNombre">
-      <Properties>
-        <Property name="text" type="java.lang.String" value=" "/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldBuscarCantidad">
     </Component>

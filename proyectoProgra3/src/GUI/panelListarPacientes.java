@@ -45,17 +45,11 @@ public class panelListarPacientes extends javax.swing.JPanel {
         botonBuscar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
-        jTextFieldBuscarDireccion.setText(" ");
-
         jLabel1.setText("direccion:");
 
-        jLabel2.setText("desde:");
+        jLabel2.setText("edad desde:");
 
-        jLabel3.setText("hasta:");
-
-        jTextFieldBuscarEdadDesde.setText(" ");
-
-        jTextFieldBuscarEdadHasta.setText(" ");
+        jLabel3.setText("edad hasta:");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -107,7 +101,7 @@ public class panelListarPacientes extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(botonBuscar))
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

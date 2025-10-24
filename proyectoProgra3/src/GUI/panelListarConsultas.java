@@ -123,19 +123,16 @@ public class panelListarConsultas extends javax.swing.JPanel {
                             .addComponent(jTextFieldBuscarFechaHastaDia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                             .addComponent(jTextFieldBuscarFechaDesdeDia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextFieldBuscarFechaHastaMes, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldBuscarFechaHastaAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                                .addGap(31, 31, 31)
-                                .addComponent(botonBuscar)
-                                .addGap(60, 60, 60))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextFieldBuscarFechaDesdeMes, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldBuscarFechaDesdeAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldBuscarFechaHastaMes, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(jTextFieldBuscarFechaDesdeMes, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldBuscarFechaHastaAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(jTextFieldBuscarFechaDesdeAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonBuscar)
+                        .addGap(60, 60, 60))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,12 +169,13 @@ public class panelListarConsultas extends javax.swing.JPanel {
            model.setRowCount(0);
            
            try{
+               Fecha f1 = null;
+               Fecha f2 = null;
                Paciente p = null;
                Medico m = null;
                Periodo f = null;
                
-               Fecha f1 = null;
-               Fecha f2 = null;
+               
                
                if(!jTextFieldBuscarIdPaciente.getText().isBlank()){
                p = persistencia.obtenerPacientePorId(Integer.parseInt(jTextFieldBuscarIdPaciente.getText()));
@@ -186,25 +184,27 @@ public class panelListarConsultas extends javax.swing.JPanel {
                m = persistencia.obtenerMedicoPorId(Integer.parseInt(jTextFieldBuscarIdMedico.getText()));
                }
                if(!jTextFieldBuscarFechaDesdeDia.getText().isBlank() && !jTextFieldBuscarFechaDesdeMes.getText().isBlank() && !jTextFieldBuscarFechaDesdeAnio.getText().isBlank()){
-               f1.set(Integer.parseInt(jTextFieldBuscarFechaDesdeAnio.getText()), Integer.parseInt(jTextFieldBuscarFechaDesdeMes.getText()), Integer.parseInt(jTextFieldBuscarFechaDesdeDia.getText()));
+               f1 = new Fecha(Integer.parseInt(jTextFieldBuscarFechaDesdeDia.getText()), Integer.parseInt(jTextFieldBuscarFechaDesdeMes.getText()), Integer.parseInt(jTextFieldBuscarFechaDesdeAnio.getText()));
                }
-               if( !jTextFieldBuscarFechaHastaDia.getText().isBlank() && !jTextFieldBuscarFechaHastaMes.getText().isBlank() && !jTextFieldBuscarFechaHastaAnio.getText().isBlank()){
-               f2.set(Integer.parseInt(jTextFieldBuscarFechaHastaAnio.getText()), Integer.parseInt(jTextFieldBuscarFechaHastaMes.getText()), Integer.parseInt(jTextFieldBuscarFechaHastaDia.getText()));
+               if(!jTextFieldBuscarFechaHastaDia.getText().isBlank() && !jTextFieldBuscarFechaHastaMes.getText().isBlank() && !jTextFieldBuscarFechaHastaAnio.getText().isBlank()){
+               f2 = new Fecha(Integer.parseInt(jTextFieldBuscarFechaHastaDia.getText()), Integer.parseInt(jTextFieldBuscarFechaHastaMes.getText()), Integer.parseInt(jTextFieldBuscarFechaHastaAnio.getText()));
                }
                
                if(f1 != null && f2 != null){
-               f.setDesde(f1);
-               f.setHasta(f2);
-               }else{
+                   System.out.println("ambas fechas");
+               f= new Periodo(f1,f2);
+               } else{
+                   
                if(f1 == null && f2 != null){
-               f1.set(1, 1, 1);
-               f.setDesde(f1);
-               f.setHasta(f2);
+                   System.out.println("solo fecha fin");
+               f1 = new Fecha(1, 1, 1);
+               f = new Periodo(f1, f2);
                }else{
+                   
                if(f1 != null && f2 == null){
-               f2.set(9999, 12, 31);
-               f.setDesde(f1);
-               f.setHasta(f2);
+                   System.out.println("solo fehca inicio");
+               f2= new Fecha(12, 12, 9999);
+               f = new Periodo(f1, f2);
                }
                }
                }
