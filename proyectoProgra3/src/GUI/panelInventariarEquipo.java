@@ -147,7 +147,7 @@ public class panelInventariarEquipo extends javax.swing.JPanel {
         jTextFieldCantidad.setText("");
         try{
         if(!jTextFieldId.getText().isBlank()){
-            EquipoMedico e = persistencia.obtenerEquipoMedicoPorId(Integer.parseInt(jTextFieldId.getText()));
+            EquipoMedico e = persistencia.obtenerEquipoMedicoPorId(jTextFieldId.getText());
             jTextFieldNombre.setText(e.getNombre());
             jTextFieldCantidad.setText(e.getCantidad()+"");
         }
@@ -165,14 +165,16 @@ public class panelInventariarEquipo extends javax.swing.JPanel {
             if(jCheckBoxNuevo.isSelected()){
             int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas agregar este equipo al inventario?", "Confirmar inventariado", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (opcion == JOptionPane.YES_OPTION) {
-            persistencia.agregarEquipoMedico(jTextFieldNombre.getText(), Integer.parseInt(jTextFieldCantidad.getText()) + Integer.parseInt(jTextFieldCantidadAñadir.getText()));
+                String cantidad = (Integer.parseInt(jTextFieldCantidad.getText()) + Integer.parseInt(jTextFieldCantidadAñadir.getText()) + "");
+            persistencia.agregarEquipoMedico(jTextFieldNombre.getText(), cantidad);
             JOptionPane.showMessageDialog(this, "equipo medico añadido con exito", "equipo añadido", JOptionPane.INFORMATION_MESSAGE);
             }
             }else{
             int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas añadir esa cantidad del inventario?", "Confirmar inventariado", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             
             if (opcion == JOptionPane.YES_OPTION) {
-            persistencia.actualizarCantidadEquipo(Integer.parseInt(jTextFieldId.getText()), Integer.parseInt(jTextFieldCantidad.getText()) + Integer.parseInt(jTextFieldCantidadAñadir.getText()));
+                String cantidad = (Integer.parseInt(jTextFieldCantidad.getText()) + Integer.parseInt(jTextFieldCantidadAñadir.getText())+ "");
+            persistencia.actualizarCantidadEquipo(jTextFieldId.getText(), cantidad);
             JOptionPane.showMessageDialog(this, "equipo medico añadido con exito", "equipo añadido", JOptionPane.INFORMATION_MESSAGE);
             }
             }

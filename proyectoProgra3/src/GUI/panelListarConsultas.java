@@ -42,24 +42,20 @@ public class panelListarConsultas extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextFieldBuscarFechaDesdeDia = new javax.swing.JTextField();
-        jTextFieldBuscarFechaHastaDia = new javax.swing.JTextField();
+        jTextFieldBuscarFechaDesde = new javax.swing.JTextField();
+        jTextFieldBuscarFechaHasta = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         botonBuscar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jTextFieldBuscarIdMedico = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextFieldBuscarFechaDesdeMes = new javax.swing.JTextField();
-        jTextFieldBuscarFechaDesdeAnio = new javax.swing.JTextField();
-        jTextFieldBuscarFechaHastaMes = new javax.swing.JTextField();
-        jTextFieldBuscarFechaHastaAnio = new javax.swing.JTextField();
 
         jLabel1.setText("Id paciente:");
 
-        jLabel2.setText("desde:");
+        jLabel2.setText("fecha inicio(dd/mm/aaa):");
 
-        jLabel3.setText("hasta:");
+        jLabel3.setText("fecha fin (dd/mm/aaaa)");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -113,24 +109,16 @@ public class panelListarConsultas extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldBuscarIdMedico, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                .addComponent(jTextFieldBuscarIdMedico)
                                 .addGap(70, 70, 70))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextFieldBuscarFechaHastaDia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jTextFieldBuscarFechaDesdeDia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldBuscarFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldBuscarFechaHasta))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldBuscarFechaHastaMes, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jTextFieldBuscarFechaDesdeMes, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldBuscarFechaHastaAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                            .addComponent(jTextFieldBuscarFechaDesdeAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botonBuscar)
                         .addGap(60, 60, 60))))
         );
@@ -147,16 +135,12 @@ public class panelListarConsultas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextFieldBuscarFechaDesdeDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldBuscarFechaDesdeMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldBuscarFechaDesdeAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldBuscarFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextFieldBuscarFechaHastaDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonBuscar)
-                    .addComponent(jTextFieldBuscarFechaHastaMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldBuscarFechaHastaAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldBuscarFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -169,8 +153,8 @@ public class panelListarConsultas extends javax.swing.JPanel {
            model.setRowCount(0);
            
            try{
-               Fecha f1 = null;
-               Fecha f2 = null;
+               String f1 = null;
+               String f2 = null;
                Paciente p = null;
                Medico m = null;
                Periodo f = null;
@@ -178,38 +162,35 @@ public class panelListarConsultas extends javax.swing.JPanel {
                
                
                if(!jTextFieldBuscarIdPaciente.getText().isBlank()){
-               p = persistencia.obtenerPacientePorId(Integer.parseInt(jTextFieldBuscarIdPaciente.getText()));
+               p = persistencia.obtenerPacientePorId(jTextFieldBuscarIdPaciente.getText());
                }
                if(!jTextFieldBuscarIdMedico.getText().isBlank()){
-               m = persistencia.obtenerMedicoPorId(Integer.parseInt(jTextFieldBuscarIdMedico.getText()));
+               m = persistencia.obtenerMedicoPorId(jTextFieldBuscarIdMedico.getText());
                }
-               if(!jTextFieldBuscarFechaDesdeDia.getText().isBlank() && !jTextFieldBuscarFechaDesdeMes.getText().isBlank() && !jTextFieldBuscarFechaDesdeAnio.getText().isBlank()){
-               f1 = new Fecha(Integer.parseInt(jTextFieldBuscarFechaDesdeDia.getText()), Integer.parseInt(jTextFieldBuscarFechaDesdeMes.getText()), Integer.parseInt(jTextFieldBuscarFechaDesdeAnio.getText()));
+               if(!jTextFieldBuscarFechaDesde.getText().isBlank()){
+               f1 =(jTextFieldBuscarFechaDesde.getText());
                }
-               if(!jTextFieldBuscarFechaHastaDia.getText().isBlank() && !jTextFieldBuscarFechaHastaMes.getText().isBlank() && !jTextFieldBuscarFechaHastaAnio.getText().isBlank()){
-               f2 = new Fecha(Integer.parseInt(jTextFieldBuscarFechaHastaDia.getText()), Integer.parseInt(jTextFieldBuscarFechaHastaMes.getText()), Integer.parseInt(jTextFieldBuscarFechaHastaAnio.getText()));
+               if(!jTextFieldBuscarFechaHasta.getText().isBlank() ){
+               f2 = (jTextFieldBuscarFechaHasta.getText());
                }
                
                if(f1 != null && f2 != null){
                    System.out.println("ambas fechas");
-               f= new Periodo(f1,f2);
                } else{
                    
                if(f1 == null && f2 != null){
                    System.out.println("solo fecha fin");
-               f1 = new Fecha(1, 1, 1);
-               f = new Periodo(f1, f2);
+               f1 = "01/01/0001";
                }else{
                    
                if(f1 != null && f2 == null){
                    System.out.println("solo fehca inicio");
-               f2= new Fecha(12, 12, 9999);
-               f = new Periodo(f1, f2);
+               f2= "31/12/9999";
                }
                }
                }
                
-               List<Consulta> lista = persistencia.listarConsultas(p, m, f);
+               List<Consulta> lista = persistencia.listarConsultas(p, m, f1, f2);
                for(int i = 0; i < lista.size(); i++){
                model.addRow(new Object[]{lista.get(i).getId(), lista.get(i).getPaciente().getId(), lista.get(i).getPaciente().getNombre(), lista.get(i).getPaciente().getEdad(), lista.get(i).getPaciente().getDireccion(), lista.get(i).getMedico().getId(), lista.get(i).getMedico().getNombre(), lista.get(i).getMedico().getEspecialidad().getNombre(), lista.get(i).getFecha().toString()});
             }
@@ -231,12 +212,8 @@ public class panelListarConsultas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextFieldBuscarFechaDesdeAnio;
-    private javax.swing.JTextField jTextFieldBuscarFechaDesdeDia;
-    private javax.swing.JTextField jTextFieldBuscarFechaDesdeMes;
-    private javax.swing.JTextField jTextFieldBuscarFechaHastaAnio;
-    private javax.swing.JTextField jTextFieldBuscarFechaHastaDia;
-    private javax.swing.JTextField jTextFieldBuscarFechaHastaMes;
+    private javax.swing.JTextField jTextFieldBuscarFechaDesde;
+    private javax.swing.JTextField jTextFieldBuscarFechaHasta;
     private javax.swing.JTextField jTextFieldBuscarIdMedico;
     private javax.swing.JTextField jTextFieldBuscarIdPaciente;
     // End of variables declaration//GEN-END:variables

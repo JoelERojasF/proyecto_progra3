@@ -131,7 +131,7 @@ public class panelActualizarPacientes extends javax.swing.JPanel {
         jTextFieldDireccion.setText("");
         if(!jTextFieldId.getText().isBlank()){
             try{
-            Paciente p = persistencia.obtenerPacientePorId(Integer.parseInt(jTextFieldId.getText()));
+            Paciente p = persistencia.obtenerPacientePorId(jTextFieldId.getText());
             jTextFieldNombre.setText(p.getNombre());
             jTextFieldEdad.setText(p.getEdad() + "");
             jTextFieldDireccion.setText(p.getDireccion());
@@ -152,7 +152,7 @@ public class panelActualizarPacientes extends javax.swing.JPanel {
             int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas actualizar este paciente?", "Confirmar actualizacion", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             
             if (opcion == JOptionPane.YES_OPTION) {
-            persistencia.actualizarPaciente(Integer.parseInt(jTextFieldId.getText()), jTextFieldNombre.getText(), Integer.parseInt(jTextFieldEdad.getText()), jTextFieldDireccion.getText());
+            persistencia.actualizarPaciente(jTextFieldId.getText(), jTextFieldNombre.getText(), jTextFieldEdad.getText(), jTextFieldDireccion.getText());
             JOptionPane.showMessageDialog(this, "paciente actualizado con exito", "paciente actualizado", JOptionPane.INFORMATION_MESSAGE);
             }
 

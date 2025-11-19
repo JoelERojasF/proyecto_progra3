@@ -137,7 +137,7 @@ public class panelEliminarConsulta extends javax.swing.JPanel {
         jTextFieldFecha.setText("");
         try{
         if(!jTextFieldId.getText().isBlank()){
-            Consulta c = persistencia.obtenerConsultaPorId(Integer.parseInt(jTextFieldId.getText()));
+            Consulta c = persistencia.obtenerConsultaPorId(jTextFieldId.getText());
             jTextFieldNombrePaciente.setText(c.getPaciente().getNombre());
             jTextFieldNombreMedico.setText(c.getMedico().getNombre());
             jTextFieldFecha.setText(c.getFecha().toString());
@@ -153,7 +153,7 @@ public class panelEliminarConsulta extends javax.swing.JPanel {
         int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar esta consulta?", "Confirmar elimiinacion", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             
             if (opcion == JOptionPane.YES_OPTION) {
-            persistencia.eliminarConsulta(Integer.parseInt(jTextFieldId.getText()));
+            persistencia.eliminarConsulta(jTextFieldId.getText());
             JOptionPane.showMessageDialog(this, "consulta eliminada con exito", "consulta eliminada", JOptionPane.INFORMATION_MESSAGE);
             }
         }catch(Exception e){

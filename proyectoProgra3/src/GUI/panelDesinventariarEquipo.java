@@ -135,7 +135,7 @@ public class panelDesinventariarEquipo extends javax.swing.JPanel {
         jTextFieldCantidad.setText("");
         try{
         if(!jTextFieldId.getText().isBlank()){
-            EquipoMedico e = persistencia.obtenerEquipoMedicoPorId(Integer.parseInt(jTextFieldId.getText()));
+            EquipoMedico e = persistencia.obtenerEquipoMedicoPorId(jTextFieldId.getText());
             jTextFieldNombre.setText(e.getNombre());
             jTextFieldCantidad.setText(e.getCantidad()+"");
         }
@@ -158,7 +158,8 @@ public class panelDesinventariarEquipo extends javax.swing.JPanel {
             int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar esa cantidad del inventario?", "Confirmar desinventariado", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             
             if (opcion == JOptionPane.YES_OPTION) {
-            persistencia.actualizarCantidadEquipo(Integer.parseInt(jTextFieldId.getText()), Integer.parseInt(jTextFieldCantidad.getText()) - Integer.parseInt(jTextFieldCantidadEliminar.getText()));
+                String cantidad = (Integer.parseInt(jTextFieldCantidad.getText()) - Integer.parseInt(jTextFieldCantidadEliminar.getText()) + "");
+            persistencia.actualizarCantidadEquipo(jTextFieldId.getText(), cantidad);
             JOptionPane.showMessageDialog(this, "equipo medico eliminado con exito", "equipo eliminado", JOptionPane.INFORMATION_MESSAGE);
             }
             }

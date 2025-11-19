@@ -113,7 +113,7 @@ public class panelConsultarMedicos extends javax.swing.JPanel {
         jTextFieldEspecialidad.setText("");
         try{
         if(!jTextFieldId.getText().isBlank()){
-            Medico m = persistencia.obtenerMedicoPorId(Integer.parseInt(jTextFieldId.getText()));
+            Medico m = persistencia.obtenerMedicoPorId(jTextFieldId.getText());
             jTextFieldNombre.setText(m.getNombre());
             jTextFieldEspecialidad.setText(m.getEspecialidad().getNombre());
         }

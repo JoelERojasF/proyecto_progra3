@@ -122,7 +122,7 @@ public class panelConsultarPacientes extends javax.swing.JPanel {
         jTextFieldDireccion.setText("");
         try{
         if(!jTextFieldId.getText().isBlank()){
-            Paciente p = persistencia.obtenerPacientePorId(Integer.parseInt(jTextFieldId.getText()));
+            Paciente p = persistencia.obtenerPacientePorId(jTextFieldId.getText());
             jTextFieldNombre.setText(p.getNombre());
             jTextFieldEdad.setText(p.getEdad()+"");
             jTextFieldDireccion.setText(p.getDireccion());

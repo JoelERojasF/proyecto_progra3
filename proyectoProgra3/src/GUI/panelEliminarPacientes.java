@@ -137,7 +137,7 @@ public class panelEliminarPacientes extends javax.swing.JPanel {
         jTextFieldDireccion.setText("");
         if(!jTextFieldId.getText().isBlank()){
             try{
-            Paciente p = persistencia.obtenerPacientePorId(Integer.parseInt(jTextFieldId.getText()));
+            Paciente p = persistencia.obtenerPacientePorId(jTextFieldId.getText());
             jTextFieldNombre.setText(p.getNombre());
             jTextFieldEdad.setText(p.getEdad() + "");
             jTextFieldDireccion.setText(p.getDireccion());
@@ -156,7 +156,7 @@ public class panelEliminarPacientes extends javax.swing.JPanel {
             int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar este paciente?", "Confirmar elimiinacion", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             
             if (opcion == JOptionPane.YES_OPTION) {
-            persistencia.eliminarPaciente(Integer.parseInt(jTextFieldId.getText()));
+            persistencia.eliminarPaciente(jTextFieldId.getText());
             JOptionPane.showMessageDialog(this, "paciente eliminado con exito", "paciente eliminado", JOptionPane.INFORMATION_MESSAGE);
             }
 

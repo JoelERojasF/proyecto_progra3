@@ -110,7 +110,7 @@ public class panelAgregarPacientes extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "datos incompletos", "Error", JOptionPane.INFORMATION_MESSAGE);
         }else{
             try{
-                persistencia.agregarPaciente(jTextFieldNombre.getText(), Integer.parseInt(jTextFieldEdad.getText()), jTextFieldDireccion.getText());
+                persistencia.agregarPaciente(jTextFieldNombre.getText(), jTextFieldEdad.getText(), jTextFieldDireccion.getText());
                 JOptionPane.showMessageDialog(this, "paciente agregado con exito", "paciente agregado", JOptionPane.INFORMATION_MESSAGE);
             }catch(Exception e){
             JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);

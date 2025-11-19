@@ -15,6 +15,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import objetosServicio.Fecha;
 import objetosServicio.Periodo;
+import Validadores.validadores;
 
 /**
  *
@@ -27,36 +28,46 @@ public class PersistenciaFachada implements IPersistenciaFachada{
     private PersistenciaEspecialidades persistenciaEspecialidades;
     private PersistenciaInventarios persistenciaInventarios;
     private PersistenciaConsultas persistenciaConsultas;
+    private validadores validador = new validadores();
     
     public PersistenciaFachada() {
         this.persistenciaPacientes = new PersistenciaPacientes();
         this.persistenciaMedicos = new PersistenciaMedicos();
         this.persistenciaEspecialidades = new PersistenciaEspecialidades();
         this.persistenciaInventarios = new PersistenciaInventarios();
-        this.persistenciaConsultas = new PersistenciaConsultas();
+        this.persistenciaConsultas = new PersistenciaConsultas(); 
+        
     }
 
     //pacientes
     @Override
-    public void agregarPaciente(String nombre, int edad, String direccion) throws Exception {
-        if(nombre == null || nombre.isBlank() || edad <= 0 || direccion == null || direccion.isBlank()){
-        throw new IllegalArgumentException("datos invalidos");
-        }else{
+    public void agregarPaciente(String nombre, String edad, String direccion) throws Exception {
+//        if(nombre == null || nombre.isBlank() || edad <= 0 || direccion == null || direccion.isBlank()){
+//        throw new IllegalArgumentException("datos invalidos");
+//        } else 
+        if(!validador.validarNombrePaciente(nombre)){
+        throw new IllegalArgumentException("nombre invalido");
+        }else if(!validador.validarEdad(edad)){
+        throw new IllegalArgumentException("edad invalida");
+        } else if(!validador.validarDireccion(direccion)){
+        throw new IllegalArgumentException("direccion invalida");
+        }
+        else{
             int id = 1;
             while(persistenciaPacientes.obtenerPacientePorID(id) != null){
             id++;
             }
-            Paciente p = new Paciente(id, nombre, edad, direccion);
+            Paciente p = new Paciente(id, nombre, Integer.parseInt(edad), direccion);
         persistenciaPacientes.agregarPaciente(p);
         }
     }
 
     @Override
-    public Paciente obtenerPacientePorId(int id) throws Exception {
-        if(id < 1){
+    public Paciente obtenerPacientePorId(String id) throws Exception {
+        if(!validador.validarId(id)){
         throw new IllegalArgumentException("id invalida");
         }
-        Paciente p = persistenciaPacientes.obtenerPacientePorID(id);
+        Paciente p = persistenciaPacientes.obtenerPacientePorID(Integer.parseInt(id));
         if(p == null){
         throw new NoSuchElementException("paciente no encontrado");
         }
@@ -64,8 +75,18 @@ public class PersistenciaFachada implements IPersistenciaFachada{
     }
 
     @Override
-    public List<Paciente> listarPacientes(String direccion, int edadDesde, int edadHasta) throws Exception {
+    public List<Paciente> listarPacientes(String direccion, String SedadDesde, String SedadHasta) throws Exception {
         List<Paciente> lista = persistenciaPacientes.listarPacientes();
+        
+        if(!validador.validarEdad(SedadDesde)){
+        throw new IllegalArgumentException("edad desde invalida");
+        } else if(!validador.validarEdad(SedadHasta)){
+        throw new IllegalArgumentException("edad desde invalida");
+        } else if(!validador.validarDireccion(direccion)){
+        throw new IllegalArgumentException("direccion invalida");
+        }else{
+        int edadDesde = Integer.parseInt(SedadDesde);
+        int edadHasta = Integer.parseInt(SedadHasta);
 
         if (lista.isEmpty()) {
             throw new NoSuchElementException("ningún paciente registrado");
@@ -106,42 +127,58 @@ public class PersistenciaFachada implements IPersistenciaFachada{
                 it.remove();
             }
         }
-
+        }
         return lista;
     }
 
     @Override
-    public void actualizarPaciente(int id,String nombre, int edad, String direccion) throws Exception {
-        if(nombre == null || nombre.isBlank() || edad <= 0 || direccion == null || direccion.isBlank()){
-        throw new IllegalArgumentException("datos invalidos");
+    public void actualizarPaciente(String id,String nombre, String edad, String direccion) throws Exception {
+//        if(nombre == null || nombre.isBlank() || edad <= 0 || direccion == null || direccion.isBlank()){
+//        throw new IllegalArgumentException("datos invalidos");
+//        }
+        if(!validador.validarId(id)){
+        throw new IllegalArgumentException("id invalido");
+        } else if(!validador.validarNombrePaciente(nombre)){
+        throw new IllegalArgumentException("nombre invalido");
+        }else if(!validador.validarEdad(edad)){
+        throw new IllegalArgumentException("edad invalida");
+        } else if(!validador.validarDireccion(direccion)){
+        throw new IllegalArgumentException("direccion invalida");
         }
+        else{
         
-        if(persistenciaPacientes.obtenerPacientePorID(id) == null){
+        if(persistenciaPacientes.obtenerPacientePorID(Integer.parseInt(id)) == null){
         throw new NoSuchElementException("paciente no encontrado");
         }
         
-        Paciente p = new Paciente(id, nombre, edad, direccion);
+        Paciente p = new Paciente(Integer.parseInt(id), nombre, Integer.parseInt(edad), direccion);
         persistenciaPacientes.actualizarPaciente(p);
-        
+        }
     }
 
     @Override
-    public void eliminarPaciente(int id) throws Exception {
-        if(id < 1){
+    public void eliminarPaciente(String id) throws Exception {
+        if(!validador.validarId(id)){
         throw new IllegalArgumentException("id invalida");
         }
-        if(persistenciaPacientes.obtenerPacientePorID(id) == null){
+        if(persistenciaPacientes.obtenerPacientePorID(Integer.parseInt(id)) == null){
         throw new NoSuchElementException("paciente no encontrado");
         }
-        persistenciaPacientes.eliminarPaciente(id);
+        persistenciaPacientes.eliminarPaciente(Integer.parseInt(id));
     }
 
     //medicos
     @Override
     public void agregarMedico(String nombre, Especialidad especialidad) throws Exception {
-        if(nombre == null || nombre.isBlank() || especialidad == null){
-        throw new IllegalArgumentException("datos invalidos");
-        }else{
+//        if(nombre == null || nombre.isBlank() || especialidad == null){
+//        throw new IllegalArgumentException("datos invalidos");
+//        }
+        if(!validador.validarNombreEquipo(nombre)){
+        throw new IllegalArgumentException("nombre invalido");
+        } else if(especialidad == null || !validador.validarEspecialidad(especialidad.getNombre())){
+        throw new IllegalArgumentException("especialidad invalida");
+        }
+        else{
             int id = 1;
             while(persistenciaMedicos.obtenerMedicoPorId(id) != null){
             id++;
@@ -152,11 +189,11 @@ public class PersistenciaFachada implements IPersistenciaFachada{
     }
 
     @Override
-    public Medico obtenerMedicoPorId(int id) throws Exception {
-        if(id < 1){
+    public Medico obtenerMedicoPorId(String id) throws Exception {
+        if(!validador.validarId(id)){
         throw new IllegalArgumentException("id invalida");
         }
-        Medico m = persistenciaMedicos.obtenerMedicoPorId(id);
+        Medico m = persistenciaMedicos.obtenerMedicoPorId(Integer.parseInt(id));
         if(m == null){
         throw new NoSuchElementException("medico no encontrado");
         }
@@ -166,6 +203,11 @@ public class PersistenciaFachada implements IPersistenciaFachada{
     @Override
     public List<Medico> listarMedicos(Especialidad especialidad) throws Exception {
         List<Medico> lista = persistenciaMedicos.listarMedicos();
+        
+        if(especialidad == null || !validador.validarEspecialidad(especialidad.getNombre())){
+        throw new IllegalArgumentException("especialidad invalida");
+        }else{
+        
         if(lista.size() == 0){
         throw new NoSuchElementException("ningun medico registrado");
         }
@@ -179,15 +221,20 @@ public class PersistenciaFachada implements IPersistenciaFachada{
                 }
             }
         }
+        }
         return lista;    
     }
 
     //especialidades
     @Override
     public void agregarEspecialidad(String nombre) throws Exception {
-         if(nombre == null || nombre.isBlank()){
-        throw new IllegalArgumentException("datos invalidos");
-        }else{
+//        if(nombre == null || nombre.isBlank()){
+//        throw new IllegalArgumentException("datos invalidos");
+//        }
+        if(!validador.validarEspecialidad(nombre)){
+        throw new IllegalArgumentException("especialidad invalida");
+        }
+         else{
             int id = 1;
             while(persistenciaEspecialidades.obtenerEspecialidadPorId(id) != null){
             id++;
@@ -198,11 +245,11 @@ public class PersistenciaFachada implements IPersistenciaFachada{
     }
 
     @Override
-    public Especialidad obtenerEspecialidadPorId(int id) throws Exception {
-        if(id < 1){
+    public Especialidad obtenerEspecialidadPorId(String id) throws Exception {
+        if(!validador.validarId(id)){
         throw new IllegalArgumentException("id invalida");
         }
-        Especialidad e = persistenciaEspecialidades.obtenerEspecialidadPorId(id);
+        Especialidad e = persistenciaEspecialidades.obtenerEspecialidadPorId(Integer.parseInt(id));
         if(e == null){
         throw new NoSuchElementException("especialidad no encontrada");
         }
@@ -220,42 +267,58 @@ public class PersistenciaFachada implements IPersistenciaFachada{
 
     //inventario/equipos medicos
     @Override
-    public void agregarEquipoMedico(String nombre, int cantidad) throws Exception {
-        if(nombre == null || nombre.isBlank()){
-        throw new IllegalArgumentException("datos invalidos");
-        }else{
+    public void agregarEquipoMedico(String nombre, String cantidad) throws Exception {
+//        if(nombre == null || nombre.isBlank()){
+//        throw new IllegalArgumentException("datos invalidos");
+//        }
+        if(!validador.validarNombreEquipo(nombre)){
+        throw new IllegalArgumentException("equipo invalido");
+        } else if(!validador.validrCantidadEquipo(cantidad)){
+        throw new IllegalArgumentException("cantidad invalida");
+        }
+        else{
             int id = 1;
             while(persistenciaInventarios.obtenerInventarioPorId(id) != null){
             id++;
             }
-            EquipoMedico e = new EquipoMedico(id, nombre, cantidad);
+            EquipoMedico e = new EquipoMedico(id, nombre, Integer.parseInt(cantidad));
         persistenciaInventarios.agregarInventario(e);
         }    
     }
 
     @Override
-    public void actualizarCantidadEquipo(int id, int cantidad) throws Exception {
-        if(cantidad < 0 || id < 1 ){
-        throw new IllegalArgumentException("datos invalidos");
+    public void actualizarCantidadEquipo(String id, String cantidad) throws Exception {
+//        if(cantidad < 0 || id < 1 ){
+//        throw new IllegalArgumentException("datos invalidos");
+//        }
+        if(!validador.validarId(id)){
+        throw new IllegalArgumentException("id invalido");
+        }else if(!validador.validrCantidadEquipo(cantidad)){
+        throw new IllegalArgumentException("cantidad invalida");
         }
-        EquipoMedico e = persistenciaInventarios.obtenerInventarioPorId(id);
+        EquipoMedico e = persistenciaInventarios.obtenerInventarioPorId(Integer.parseInt(id));
         if(e == null){
         throw new NoSuchElementException("equipo medico no encontrado");
         }
-        e.setCantidad(cantidad);
+        e.setCantidad(Integer.parseInt(cantidad));
         persistenciaInventarios.actualizarInventario(e);
     }
 
     @Override
-    public List<EquipoMedico> listarEquiposMedicos(String nombre, int cantidad) throws Exception {
+    public List<EquipoMedico> listarEquiposMedicos(String nombre, String cantidad) throws Exception {
         List<EquipoMedico> lista = persistenciaInventarios.listarInventarios();
+        if(!validador.validarNombreEquipo(nombre)){
+        throw new IllegalArgumentException("nombre invalido");
+        }else if(validador.validrCantidadEquipo(cantidad)){
+        throw new IllegalArgumentException("cantidad invalida");
+        }else{
 
         if (lista.isEmpty()) {
             throw new NoSuchElementException("ningún equipo médico registrado");
         }
 
         boolean filtroNombreActivo = nombre != null && !nombre.isBlank();
-        boolean filtroCantidadActivo = cantidad >= 0;
+        boolean filtroCantidadActivo = Integer.parseInt(cantidad) >= 0;
 
         if (!filtroNombreActivo && !filtroCantidadActivo) {
             return lista;
@@ -270,20 +333,20 @@ public class PersistenciaFachada implements IPersistenciaFachada{
             continue;
         }
 
-        if (filtroCantidadActivo && e.getCantidad() != cantidad) {
+        if (filtroCantidadActivo && e.getCantidad() != Integer.parseInt(cantidad)) {
             it.remove();
         }
         }
-
+        }
         return lista;
     }
 
     @Override
-    public EquipoMedico obtenerEquipoMedicoPorId(int id) throws Exception {
-        if(id < 1){
+    public EquipoMedico obtenerEquipoMedicoPorId(String id) throws Exception {
+        if(!validador.validarId(id)){
         throw new IllegalArgumentException("id invalida");
         }
-        EquipoMedico e = persistenciaInventarios.obtenerInventarioPorId(id);
+        EquipoMedico e = persistenciaInventarios.obtenerInventarioPorId(Integer.parseInt(id));
         if(e == null){
         throw new NoSuchElementException("equipo medico no encontrado");
         }
@@ -292,23 +355,45 @@ public class PersistenciaFachada implements IPersistenciaFachada{
 
     //consultas
     @Override
-    public void agregarConsulta(Paciente paciente, Medico medico, Fecha fecha) throws Exception {
-        if(paciente == null || medico == null || fecha == null){
-        throw new IllegalArgumentException("datos invalidos");
-        }else{
+    public void agregarConsulta(Paciente paciente, Medico medico, String fecha) throws Exception {
+//        if(paciente == null || medico == null || fecha == null){
+//        throw new IllegalArgumentException("datos invalidos");
+//        }
+        if(paciente == null || !validador.validarNombrePaciente(paciente.getNombre())){
+        throw new IllegalArgumentException("paciente invalido");
+        }else if(medico == null || !validador.validarNombreMedico(medico.getNombre())){
+        throw new IllegalArgumentException("medico invalido");
+        }else if(!validador.validarFechaConsulta(fecha)){
+        throw new IllegalArgumentException("fecha invalida");
+        }
+        else{
             int id = 1;
             while(persistenciaConsultas.obtenerConsultaPorId(id) != null){
             id++;
             }
-            Consulta c = new Consulta(id, paciente, medico, fecha);
+            Fecha fecha1 = new Fecha(fecha);
+            Consulta c = new Consulta(id, paciente, medico, fecha1);
         persistenciaConsultas.agregarConsulta(c);
         }
     }
 
     @Override
-    public List<Consulta> listarConsultas(Paciente paciente, Medico medico, Periodo periodo) throws Exception {
+    public List<Consulta> listarConsultas(Paciente paciente, Medico medico, String fechaDesde, String fechaHasta) throws Exception {
         List<Consulta> lista = persistenciaConsultas.listarConsultas();
+        if(paciente == null || !validador.validarNombrePaciente(paciente.getNombre())){
+        throw new IllegalArgumentException("paciente invalido");
+        }else if(medico == null || !validador.validarNombreMedico(medico.getNombre())){
+        throw new IllegalArgumentException("medico invalido");
+        }else if(!validador.validarFechaConsulta(fechaDesde)){
+        throw new IllegalArgumentException("fecha invalida");
+        }else if(!validador.validarFechaConsulta(fechaHasta)){
+        throw new IllegalArgumentException("fecha invalida");
+        }else{
+        
+        Fecha fecha1 = new Fecha(fechaDesde);
+        Fecha fecha2 = new Fecha(fechaHasta);
 
+        Periodo periodo = new Periodo(fecha1, fecha2);
     if (lista.isEmpty()) {
         throw new NoSuchElementException("ninguna consulta registrada");
     }
@@ -342,16 +427,16 @@ public class PersistenciaFachada implements IPersistenciaFachada{
             }
         }
     }
-
+    }
     return lista;
     }
 
     @Override
-    public Consulta obtenerConsultaPorId(int id) throws Exception {
-        if(id < 1){
+    public Consulta obtenerConsultaPorId(String id) throws Exception {
+        if(!validador.validarId(id)){
         throw new IllegalArgumentException("id invalida");
         }
-        Consulta c = persistenciaConsultas.obtenerConsultaPorId(id);
+        Consulta c = persistenciaConsultas.obtenerConsultaPorId(Integer.parseInt(id));
         if(c == null){
         throw new NoSuchElementException("consulta no encontrada");
         }
@@ -359,14 +444,14 @@ public class PersistenciaFachada implements IPersistenciaFachada{
     }
 
     @Override
-    public void eliminarConsulta(int id) throws Exception {
-        if(id < 1){
+    public void eliminarConsulta(String id) throws Exception {
+        if(!validador.validarId(id)){
         throw new IllegalArgumentException("id invalida");
         }
-        if(persistenciaConsultas.obtenerConsultaPorId(id) == null){
+        if(persistenciaConsultas.obtenerConsultaPorId(Integer.parseInt(id)) == null){
         throw new NoSuchElementException("consulta no encontrado");
         }
-        persistenciaConsultas.eliminarConsulta(id);
+        persistenciaConsultas.eliminarConsulta(Integer.parseInt(id));
     }
     
 }

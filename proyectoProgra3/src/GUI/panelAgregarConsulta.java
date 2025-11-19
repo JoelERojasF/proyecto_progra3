@@ -53,9 +53,7 @@ public class panelAgregarConsulta extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextFieldFechaDia = new javax.swing.JTextField();
-        jTextFieldFechaMes = new javax.swing.JTextField();
-        jTextFieldFechaAnio = new javax.swing.JTextField();
+        jTextFieldFecha = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
 
         botonAgregar.setText("Agregar");
@@ -103,7 +101,7 @@ public class panelAgregarConsulta extends javax.swing.JPanel {
 
         jLabel8.setText("especialidad");
 
-        jLabel9.setText("fecha");
+        jLabel9.setText("fecha en formato dd/mm/aaaa");
 
         jLabel2.setText("agregar consulta");
 
@@ -112,20 +110,9 @@ public class panelAgregarConsulta extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(158, 158, 158)
-                        .addComponent(botonAgregar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldFechaDia, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldFechaMes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldFechaAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addGap(158, 158, 158)
+                .addComponent(botonAgregar)
+                .addContainerGap(125, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(botonBuscarPaciente)
@@ -146,7 +133,10 @@ public class panelAgregarConsulta extends javax.swing.JPanel {
                                 .addComponent(jTextFieldNombrePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextFieldDireccionPaciente)))))
+                                .addComponent(jTextFieldDireccionPaciente))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel9)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
@@ -163,7 +153,8 @@ public class panelAgregarConsulta extends javax.swing.JPanel {
                                     .addComponent(jTextFieldIdMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(8, 8, 8)))
                             .addComponent(jTextFieldEspecialidadMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldNombreMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jTextFieldNombreMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -206,9 +197,7 @@ public class panelAgregarConsulta extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextFieldFechaDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldFechaMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldFechaAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addComponent(botonAgregar)
                 .addGap(41, 41, 41))
@@ -217,7 +206,7 @@ public class panelAgregarConsulta extends javax.swing.JPanel {
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
         // TODO add your handling code here:
-        if(jTextFieldIdPaciente.getText().isBlank() || jTextFieldIdMedico.getText().isBlank() || jTextFieldFechaDia.getText().isBlank() || jTextFieldFechaMes.getText().isBlank() || jTextFieldFechaAnio.getText().isBlank()){
+        if(jTextFieldIdPaciente.getText().isBlank() || jTextFieldIdMedico.getText().isBlank() || jTextFieldFecha.getText().isBlank()){
         JOptionPane.showMessageDialog(this, "datos incompletos", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
@@ -225,11 +214,10 @@ public class panelAgregarConsulta extends javax.swing.JPanel {
             int opcion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas crear esta consulta?", "Confirmar creacion de consulta", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             
             if (opcion == JOptionPane.YES_OPTION) {
-            Paciente p = persistencia.obtenerPacientePorId(Integer.parseInt(jTextFieldIdPaciente.getText()));
-            Medico m = persistencia.obtenerMedicoPorId(Integer.parseInt(jTextFieldIdMedico.getText()));
-            Fecha f = new Fecha(Integer.parseInt(jTextFieldFechaDia.getText()), Integer.parseInt(jTextFieldFechaMes.getText()), Integer.parseInt(jTextFieldFechaAnio.getText()));
-            persistencia.agregarConsulta(p, m, f);
-            JOptionPane.showMessageDialog(this, "consulta del paciente: " +p.toString()+ " con el medico: " + m.toString()+ " el dia: " + f.toString() +" fue registrada con exito", "consulta registrada", JOptionPane.INFORMATION_MESSAGE);
+            Paciente p = persistencia.obtenerPacientePorId(jTextFieldIdPaciente.getText());
+            Medico m = persistencia.obtenerMedicoPorId(jTextFieldIdMedico.getText());
+            persistencia.agregarConsulta(p, m, jTextFieldFecha.getText());
+            JOptionPane.showMessageDialog(this, "consulta del paciente: " +p.toString()+ " con el medico: " + m.toString()+ " el dia: " + jTextFieldFecha.getText() +" fue registrada con exito", "consulta registrada", JOptionPane.INFORMATION_MESSAGE);
             }
             }catch(Exception e){
                 JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
@@ -246,7 +234,7 @@ public class panelAgregarConsulta extends javax.swing.JPanel {
         jTextFieldDireccionPaciente.setText("");
         if(!jTextFieldIdPaciente.getText().isBlank()){
             try{
-            Paciente p = persistencia.obtenerPacientePorId(Integer.parseInt(jTextFieldIdPaciente.getText()));
+            Paciente p = persistencia.obtenerPacientePorId(jTextFieldIdPaciente.getText());
             jTextFieldNombrePaciente.setText(p.getNombre());
             jTextFieldEdadPaciente.setText(p.getEdad() + "");
             jTextFieldDireccionPaciente.setText(p.getDireccion());
@@ -263,7 +251,7 @@ public class panelAgregarConsulta extends javax.swing.JPanel {
         jTextFieldEspecialidadMedico.setText("");
         if(!jTextFieldIdMedico.getText().isBlank()){
             try{
-            Medico m = persistencia.obtenerMedicoPorId(Integer.parseInt(jTextFieldIdMedico.getText()));
+            Medico m = persistencia.obtenerMedicoPorId(jTextFieldIdMedico.getText());
             jTextFieldNombreMedico.setText(m.getNombre());
             jTextFieldEspecialidadMedico.setText(m.getEspecialidad().getNombre());
             }catch(Exception e){
@@ -289,9 +277,7 @@ public class panelAgregarConsulta extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldDireccionPaciente;
     private javax.swing.JTextField jTextFieldEdadPaciente;
     private javax.swing.JTextField jTextFieldEspecialidadMedico;
-    private javax.swing.JTextField jTextFieldFechaAnio;
-    private javax.swing.JTextField jTextFieldFechaDia;
-    private javax.swing.JTextField jTextFieldFechaMes;
+    private javax.swing.JTextField jTextFieldFecha;
     private javax.swing.JTextField jTextFieldIdMedico;
     private javax.swing.JTextField jTextFieldIdPaciente;
     private javax.swing.JTextField jTextFieldNombreMedico;

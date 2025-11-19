@@ -19,33 +19,33 @@ import objetosServicio.Periodo;
  */
 public interface IPersistenciaFachada {
     //pacientes
-    void agregarPaciente(String nombre, int edad, String direccion) throws Exception;
-    Paciente obtenerPacientePorId(int id) throws Exception; 
-    List<Paciente> listarPacientes(String direccion, int edadDesde, int edadHasta) throws Exception;
-    void actualizarPaciente(int id,String nombre, int edad, String direccion)throws Exception;
-    void eliminarPaciente(int id) throws Exception;
+    void agregarPaciente(String nombre, String edad, String direccion) throws Exception;
+    Paciente obtenerPacientePorId(String id) throws Exception; 
+    List<Paciente> listarPacientes(String direccion, String edadDesde, String edadHasta) throws Exception;
+    void actualizarPaciente(String id,String nombre, String edad, String direccion)throws Exception;
+    void eliminarPaciente(String id) throws Exception;
     
     
     //medicos
     void agregarMedico(String nombre, Especialidad especialidad) throws Exception;
-    Medico obtenerMedicoPorId(int id) throws Exception;
+    Medico obtenerMedicoPorId(String id) throws Exception;
     List<Medico> listarMedicos(Especialidad especialidad) throws Exception;
     
     //especialidades
     void agregarEspecialidad(String nombre) throws Exception;
-    Especialidad obtenerEspecialidadPorId(int id) throws Exception;
+    Especialidad obtenerEspecialidadPorId(String id) throws Exception;
     List<Especialidad> listarEspecialidades() throws Exception;
     
     //equipo medicos
-    void agregarEquipoMedico(String nombre, int cantidad) throws Exception;
-    void actualizarCantidadEquipo(int id, int cantidad) throws Exception;
-    List<EquipoMedico> listarEquiposMedicos(String nombre, int cantidad) throws Exception;
-    EquipoMedico obtenerEquipoMedicoPorId(int id) throws Exception;
+    void agregarEquipoMedico(String nombre, String cantidad) throws Exception;
+    void actualizarCantidadEquipo(String id, String cantidad) throws Exception;
+    List<EquipoMedico> listarEquiposMedicos(String nombre, String cantidad) throws Exception;
+    EquipoMedico obtenerEquipoMedicoPorId(String id) throws Exception;
     
     //consultas
-    void agregarConsulta(Paciente paciente, Medico medico, Fecha fecha) throws Exception;
-    List<Consulta> listarConsultas(Paciente paciente, Medico medico, Periodo periodo) throws Exception;
-    Consulta obtenerConsultaPorId(int id) throws Exception;
-    void eliminarConsulta(int id) throws Exception;
+    void agregarConsulta(Paciente paciente, Medico medico, String fecha) throws Exception;
+    List<Consulta> listarConsultas(Paciente paciente, Medico medico, String fechaDesde, String fechaHasta) throws Exception;
+    Consulta obtenerConsultaPorId(String id) throws Exception;
+    void eliminarConsulta(String id) throws Exception;
     
 }

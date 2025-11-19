@@ -37,7 +37,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextFieldBuscarIdMedico" pref="140" max="32767" attributes="0"/>
+                              <Component id="jTextFieldBuscarIdMedico" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -47,21 +47,11 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jTextFieldBuscarFechaHastaDia" alignment="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="jTextFieldBuscarFechaDesdeDia" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jTextFieldBuscarFechaDesde" min="-2" pref="144" max="-2" attributes="0"/>
+                          <Component id="jTextFieldBuscarFechaHasta" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jTextFieldBuscarFechaHastaMes" pref="0" max="32767" attributes="0"/>
-                          <Component id="jTextFieldBuscarFechaDesdeMes" min="-2" pref="44" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jTextFieldBuscarFechaHastaAnio" pref="0" max="32767" attributes="0"/>
-                          <Component id="jTextFieldBuscarFechaDesdeAnio" min="-2" pref="44" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="botonBuscar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                   </Group>
@@ -83,17 +73,13 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextFieldBuscarFechaDesdeDia" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextFieldBuscarFechaDesdeMes" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextFieldBuscarFechaDesdeAnio" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldBuscarFechaDesde" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextFieldBuscarFechaHastaDia" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldBuscarFechaHasta" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="botonBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextFieldBuscarFechaHastaMes" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextFieldBuscarFechaHastaAnio" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="275" max="-2" attributes="0"/>
@@ -112,17 +98,17 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="desde:"/>
+        <Property name="text" type="java.lang.String" value="fecha inicio(dd/mm/aaa):"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="hasta:"/>
+        <Property name="text" type="java.lang.String" value="fecha fin (dd/mm/aaaa)"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldBuscarFechaDesdeDia">
+    <Component class="javax.swing.JTextField" name="jTextFieldBuscarFechaDesde">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldBuscarFechaHastaDia">
+    <Component class="javax.swing.JTextField" name="jTextFieldBuscarFechaHasta">
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -221,14 +207,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="listar consultas"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldBuscarFechaDesdeMes">
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldBuscarFechaDesdeAnio">
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldBuscarFechaHastaMes">
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldBuscarFechaHastaAnio">
     </Component>
   </SubComponents>
 </Form>

@@ -149,12 +149,12 @@ public class panelListarEquipo extends javax.swing.JPanel {
            
            try{
                if(jCheckBoxId.isSelected()){
-               EquipoMedico e = persistencia.obtenerEquipoMedicoPorId(Integer.parseInt(jTextFieldBuscarId.getText()));
+               EquipoMedico e = persistencia.obtenerEquipoMedicoPorId(jTextFieldBuscarId.getText());
                model.addRow(new Object[]{e.getId(), e.getNombre(), e.getCantidad()});
                }else{
-                   int cantidad = -1;
+                    String cantidad = (-1+"");
                    if(!jTextFieldBuscarCantidad.getText().isBlank()){
-                   cantidad =Integer.parseInt(jTextFieldBuscarCantidad.getText());
+                   cantidad = jTextFieldBuscarCantidad.getText();
                    }
                    
                 List<EquipoMedico> lista = persistencia.listarEquiposMedicos(jTextFieldBuscarNombre.getText(), cantidad);

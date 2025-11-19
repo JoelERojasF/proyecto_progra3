@@ -133,13 +133,13 @@ public class panelListarPacientes extends javax.swing.JPanel {
            model.setRowCount(0);
            
            try{
-               int desde=0;
-               int hasta=0;
+               String desde=0+"";
+               String hasta=0+"";
                if(!jTextFieldBuscarEdadDesde.getText().isBlank()){
-               desde = Integer.parseInt(jTextFieldBuscarEdadDesde.getText());
+               desde = jTextFieldBuscarEdadDesde.getText();
                }
                if(!jTextFieldBuscarEdadHasta.getText().isBlank()){
-               hasta = Integer.parseInt(jTextFieldBuscarEdadHasta.getText());
+               hasta = jTextFieldBuscarEdadHasta.getText();
                }
                
            List<Paciente> lista = persistencia.listarPacientes(jTextFieldBuscarDireccion.getText(), desde, hasta);
