@@ -1,2 +1,1 @@
-1,house,1,Neurologia
-2,wilson,5,Onclologia
+1,Dr. Juan Pérez,5,Onclologia

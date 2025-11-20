@@ -153,12 +153,10 @@ public class panelListarConsultas extends javax.swing.JPanel {
            model.setRowCount(0);
            
            try{
-               String f1 = null;
-               String f2 = null;
+               String f1 = "01/01/0001";
+               String f2 = "31/12/9999";
                Paciente p = null;
-               Medico m = null;
-               Periodo f = null;
-               
+               Medico m = null;               
                
                
                if(!jTextFieldBuscarIdPaciente.getText().isBlank()){
@@ -172,22 +170,6 @@ public class panelListarConsultas extends javax.swing.JPanel {
                }
                if(!jTextFieldBuscarFechaHasta.getText().isBlank() ){
                f2 = (jTextFieldBuscarFechaHasta.getText());
-               }
-               
-               if(f1 != null && f2 != null){
-                   System.out.println("ambas fechas");
-               } else{
-                   
-               if(f1 == null && f2 != null){
-                   System.out.println("solo fecha fin");
-               f1 = "01/01/0001";
-               }else{
-                   
-               if(f1 != null && f2 == null){
-                   System.out.println("solo fehca inicio");
-               f2= "31/12/9999";
-               }
-               }
                }
                
                List<Consulta> lista = persistencia.listarConsultas(p, m, f1, f2);

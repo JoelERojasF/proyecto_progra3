@@ -21,7 +21,7 @@ public interface IPersistenciaFachada {
     //pacientes
     void agregarPaciente(String nombre, String edad, String direccion) throws Exception;
     Paciente obtenerPacientePorId(String id) throws Exception; 
-    List<Paciente> listarPacientes(String direccion, String edadDesde, String edadHasta) throws Exception;
+    List<Paciente> listarPacientes(String nombre, String direccion, String edadDesde, String edadHasta) throws Exception;
     void actualizarPaciente(String id,String nombre, String edad, String direccion)throws Exception;
     void eliminarPaciente(String id) throws Exception;
     

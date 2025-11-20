@@ -16,6 +16,7 @@ import java.util.Objects;
 import objetosServicio.Fecha;
 import objetosServicio.Periodo;
 import Validadores.validadores;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -75,16 +76,8 @@ public class PersistenciaFachada implements IPersistenciaFachada{
     }
 
     @Override
-    public List<Paciente> listarPacientes(String direccion, String SedadDesde, String SedadHasta) throws Exception {
+    public List<Paciente> listarPacientes(String nombre, String direccion, String SedadDesde, String SedadHasta) throws Exception {
         List<Paciente> lista = persistenciaPacientes.listarPacientes();
-        
-        if(!validador.validarEdad(SedadDesde)){
-        throw new IllegalArgumentException("edad desde invalida");
-        } else if(!validador.validarEdad(SedadHasta)){
-        throw new IllegalArgumentException("edad desde invalida");
-        } else if(!validador.validarDireccion(direccion)){
-        throw new IllegalArgumentException("direccion invalida");
-        }else{
         int edadDesde = Integer.parseInt(SedadDesde);
         int edadHasta = Integer.parseInt(SedadHasta);
 
@@ -94,11 +87,12 @@ public class PersistenciaFachada implements IPersistenciaFachada{
 
     // Filtros activos
         boolean filtroDireccion = direccion != null && !direccion.isBlank();
+        boolean filtroNombre = nombre != null && !nombre.isBlank();
         boolean filtroEdadDesde = edadDesde > 0;
         boolean filtroEdadHasta = edadHasta > 0;
 
     // Si ningún filtro está activo, devolvemos todo
-        if (!filtroDireccion && !filtroEdadDesde && !filtroEdadHasta) {
+        if (!filtroNombre && !filtroDireccion && !filtroEdadDesde && !filtroEdadHasta) {
             return lista;
         }
 
@@ -110,10 +104,16 @@ public class PersistenciaFachada implements IPersistenciaFachada{
         }
 
         Iterator<Paciente> it = lista.iterator();
+        Pattern pa = Pattern.compile(nombre, Pattern.CASE_INSENSITIVE);
         while (it.hasNext()) {
             Paciente p = it.next();
 
             if (filtroDireccion && !p.getDireccion().equalsIgnoreCase(direccion)) {
+                it.remove();
+                continue;
+            }
+            
+            if(!pa.matcher(p.getNombre()).find()){
                 it.remove();
                 continue;
             }
@@ -127,7 +127,7 @@ public class PersistenciaFachada implements IPersistenciaFachada{
                 it.remove();
             }
         }
-        }
+        
         return lista;
     }
 
@@ -173,7 +173,7 @@ public class PersistenciaFachada implements IPersistenciaFachada{
 //        if(nombre == null || nombre.isBlank() || especialidad == null){
 //        throw new IllegalArgumentException("datos invalidos");
 //        }
-        if(!validador.validarNombreEquipo(nombre)){
+        if(!validador.validarNombreMedico(nombre)){
         throw new IllegalArgumentException("nombre invalido");
         } else if(especialidad == null || !validador.validarEspecialidad(especialidad.getNombre())){
         throw new IllegalArgumentException("especialidad invalida");
@@ -204,10 +204,6 @@ public class PersistenciaFachada implements IPersistenciaFachada{
     public List<Medico> listarMedicos(Especialidad especialidad) throws Exception {
         List<Medico> lista = persistenciaMedicos.listarMedicos();
         
-        if(especialidad == null || !validador.validarEspecialidad(especialidad.getNombre())){
-        throw new IllegalArgumentException("especialidad invalida");
-        }else{
-        
         if(lista.size() == 0){
         throw new NoSuchElementException("ningun medico registrado");
         }
@@ -221,7 +217,7 @@ public class PersistenciaFachada implements IPersistenciaFachada{
                 }
             }
         }
-        }
+        
         return lista;    
     }
 
@@ -235,6 +231,7 @@ public class PersistenciaFachada implements IPersistenciaFachada{
         throw new IllegalArgumentException("especialidad invalida");
         }
          else{
+            
             int id = 1;
             while(persistenciaEspecialidades.obtenerEspecialidadPorId(id) != null){
             id++;
@@ -307,11 +304,6 @@ public class PersistenciaFachada implements IPersistenciaFachada{
     @Override
     public List<EquipoMedico> listarEquiposMedicos(String nombre, String cantidad) throws Exception {
         List<EquipoMedico> lista = persistenciaInventarios.listarInventarios();
-        if(!validador.validarNombreEquipo(nombre)){
-        throw new IllegalArgumentException("nombre invalido");
-        }else if(validador.validrCantidadEquipo(cantidad)){
-        throw new IllegalArgumentException("cantidad invalida");
-        }else{
 
         if (lista.isEmpty()) {
             throw new NoSuchElementException("ningún equipo médico registrado");
@@ -337,7 +329,7 @@ public class PersistenciaFachada implements IPersistenciaFachada{
             it.remove();
         }
         }
-        }
+        
         return lista;
     }
 
@@ -380,15 +372,13 @@ public class PersistenciaFachada implements IPersistenciaFachada{
     @Override
     public List<Consulta> listarConsultas(Paciente paciente, Medico medico, String fechaDesde, String fechaHasta) throws Exception {
         List<Consulta> lista = persistenciaConsultas.listarConsultas();
-        if(paciente == null || !validador.validarNombrePaciente(paciente.getNombre())){
-        throw new IllegalArgumentException("paciente invalido");
-        }else if(medico == null || !validador.validarNombreMedico(medico.getNombre())){
-        throw new IllegalArgumentException("medico invalido");
-        }else if(!validador.validarFechaConsulta(fechaDesde)){
+        if(!validador.validarFechaConsulta(fechaDesde)){
         throw new IllegalArgumentException("fecha invalida");
-        }else if(!validador.validarFechaConsulta(fechaHasta)){
+        }
+        if(!validador.validarFechaConsulta(fechaHasta)){
         throw new IllegalArgumentException("fecha invalida");
-        }else{
+        }
+            
         
         Fecha fecha1 = new Fecha(fechaDesde);
         Fecha fecha2 = new Fecha(fechaHasta);
@@ -427,7 +417,7 @@ public class PersistenciaFachada implements IPersistenciaFachada{
             }
         }
     }
-    }
+    
     return lista;
     }
 

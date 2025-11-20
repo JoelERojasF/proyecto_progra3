@@ -1,4 +1,1 @@
-1,jeringas,25
-2,vendas,1
-3,gasas,50
-4,termometro,15
+1,Electrocardiograma,6

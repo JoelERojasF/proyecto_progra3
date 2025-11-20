@@ -39,7 +39,9 @@ private static final String ARCHIVO_ESPECIALIDADES = "especialidades.txt";
             for (String linea : lineas) {
                 Especialidad especialidad = new Especialidad();
                 especialidad = especialidad.fromString(linea);
-                if (especialidad.getId() != 0) {
+                if(especialidad == null){
+                }
+                else if (especialidad.getId() != 0) {
                     especialidades.add(especialidad);
                 }
             }

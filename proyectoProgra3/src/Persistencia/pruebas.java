@@ -21,23 +21,28 @@ public class pruebas {
      */
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
-        Paciente p1 = new Paciente(1, "jose", 20, "calle inventada 123");
-        Paciente p2 = new Paciente(2, "juan", 21, "calle inventada 124");
-        Paciente p3 = new Paciente(3, "vicente", 22, "calle inventada 125");
-        Paciente p4 = new Paciente(4, "manuel", 23, "calle inventada 126");
+
+        Paciente p1 = new Paciente(4, "manuel", 23, "calle inventada 126");
         
-        Especialidad e1 = new Especialidad(1,"Neurologia");
-        Especialidad e2 = new Especialidad(2,"Cardiologia");
-        Especialidad e3 = new Especialidad(3,"Oftalmologia");
-        Especialidad e4 = new Especialidad(4,"Pediatria");
-        Especialidad e5 = new Especialidad(5,"Onclologia");
+
+        Especialidad e1 = new Especialidad(5,"Onclologia");
         
-        PersistenciaEspecialidades pe = new PersistenciaEspecialidades();
-        pe.agregarEspecialidad(e1);
-        pe.agregarEspecialidad(e2);
-        pe.agregarEspecialidad(e3);
-        pe.agregarEspecialidad(e4);
-        pe.agregarEspecialidad(e5);
+        Medico m1 = new Medico(1 , "Dr. Juan Pérez", e1);
+        
+        PersistenciaFachada pe = new PersistenciaFachada();
+        
+//        pe.agregarPaciente("María123", "-25", "@#$%"); no funciona
+//        pe.agregarPaciente("María López", "25", "calle inventada 123"); si funciona
+        
+//        pe.agregarMedico("Dr123", e1); no funciona
+//        pe.agregarMedico("Dr. Juan Pérez", e5); si funciona
+        
+//        pe.agregarEquipoMedico("ECG!!!", "-1"); no funciona
+//        pe.agregarEquipoMedico("Electrocardiograma", "5"); si funciona
+        
+//        pe.agregarConsulta(p1, m1, "2025-01-07"); no funciona
+//        pe.agregarConsulta(p1, m1, "07/01/2025"); si funciona
+        
         
     }
     

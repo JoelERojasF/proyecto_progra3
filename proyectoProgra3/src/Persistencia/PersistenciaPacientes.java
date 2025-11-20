@@ -38,7 +38,8 @@ public class PersistenciaPacientes {
             for (String linea : lineas) {
                 Paciente paciente = new Paciente();
                 paciente = paciente.fromString(linea);
-                if (paciente.getId() != 0) {
+                if(paciente == null){}
+                else if (paciente.getId() != 0) {
                     pacientes.add(paciente);
                 }
             }

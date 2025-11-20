@@ -39,7 +39,7 @@ public class validadores {
     
     //medico
     public boolean validarNombreMedico(String nombre){
-        String patron = "^[A-Za-zÁÉÍÓÚáéíóúÑñ .]{1,50}$";
+        String patron = "^[A-Za-zÁÉÍÓÚáéíóúÑñ .,]{1,50}$";
         Pattern p = Pattern.compile(patron);
         Matcher matcher = p.matcher(nombre);
         
@@ -87,8 +87,4 @@ public class validadores {
         
         return matcher.matches();
     }
-    
-    //busquedas
-    //busqueda de paciente por nombre
-    //busqueda de consulta por fecha
 }

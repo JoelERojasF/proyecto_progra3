@@ -38,7 +38,8 @@ public class PersistenciaConsultas {
             for (String linea : lineas) {
                 Consulta consulta = new Consulta();
                 consulta = consulta.fromString(linea);
-                if (consulta.getId() != 0) {
+                if(consulta == null){}
+                else if (consulta.getId() != 0) {
                     consultas.add(consulta);
                 }
             }
