@@ -9,6 +9,7 @@ import Entidades.EquipoMedico;
 import Entidades.Especialidad;
 import Entidades.Medico;
 import Entidades.Paciente;
+import Interfaces.Ireportes;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -22,7 +23,7 @@ import java.util.regex.Pattern;
  *
  * @author le0jx
  */
-public class PersistenciaFachada implements IPersistenciaFachada{
+public class PersistenciaFachada implements IPersistenciaFachada, Ireportes{
     
     private PersistenciaPacientes persistenciaPacientes;
     private PersistenciaMedicos persistenciaMedicos;
@@ -411,7 +412,6 @@ public class PersistenciaFachada implements IPersistenciaFachada{
         }
 
         if (filtrarPeriodo) {
-            // Asumo que Periodo.tiene/contiene acepta una fecha y devuelve boolean
             if (c.getFecha() == null || !periodo.contiene(c.getFecha())) {
                 it.remove();
             }
@@ -442,6 +442,26 @@ public class PersistenciaFachada implements IPersistenciaFachada{
         throw new NoSuchElementException("consulta no encontrado");
         }
         persistenciaConsultas.eliminarConsulta(Integer.parseInt(id));
+    }
+    
+    @Override
+    public String generarReoprte(List lista) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List filtrarBusqueda(List lista, String filtro) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List ordenarResultados(List lista) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int SumarResultados(List lista) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

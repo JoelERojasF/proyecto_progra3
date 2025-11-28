@@ -24,6 +24,10 @@ public class frameMain extends javax.swing.JFrame {
     private panelDesinventariarEquipo pdDesinventariarEquipo = new panelDesinventariarEquipo();
     private panelAgregarConsulta pAgregarConsulta = new panelAgregarConsulta();
     private panelEliminarConsulta pEliminarConsulta = new panelEliminarConsulta();
+    private panelReportePacientes pReportePacientes = new panelReportePacientes();
+    private panelReporteMedicos pReporteMedicos = new panelReporteMedicos();
+    private panelReporteEquiposMedicos pReporteEquiposMedicos = new panelReporteEquiposMedicos();
+    private panelReporteConsultas pReporteConsultas = new panelReporteConsultas();
 
     /**
      * Creates new form frameMain
@@ -62,6 +66,11 @@ public class frameMain extends javax.swing.JFrame {
         opcionListarConsultas = new javax.swing.JMenuItem();
         opcionAgregarConsultas = new javax.swing.JMenuItem();
         opcionEliminarConsultas = new javax.swing.JMenuItem();
+        MenuReportes = new javax.swing.JMenu();
+        opcionMenuReportePacientes = new javax.swing.JMenuItem();
+        opcionMenuReporteMedicos = new javax.swing.JMenuItem();
+        opcionMenuReporteEquiposMedicos = new javax.swing.JMenuItem();
+        opcionMenuReporteCnsultas = new javax.swing.JMenuItem();
         MenuSalir = new javax.swing.JMenu();
         OpcionSalir = new javax.swing.JMenuItem();
 
@@ -187,6 +196,42 @@ public class frameMain extends javax.swing.JFrame {
 
         jMenuBar1.add(MenuConsultasMedicas);
 
+        MenuReportes.setText("reportes");
+
+        opcionMenuReportePacientes.setText("reporte de pacientes");
+        opcionMenuReportePacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionMenuReportePacientesActionPerformed(evt);
+            }
+        });
+        MenuReportes.add(opcionMenuReportePacientes);
+
+        opcionMenuReporteMedicos.setText("reporte de medicos");
+        opcionMenuReporteMedicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionMenuReporteMedicosActionPerformed(evt);
+            }
+        });
+        MenuReportes.add(opcionMenuReporteMedicos);
+
+        opcionMenuReporteEquiposMedicos.setText("reporte de equimo medico");
+        opcionMenuReporteEquiposMedicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionMenuReporteEquiposMedicosActionPerformed(evt);
+            }
+        });
+        MenuReportes.add(opcionMenuReporteEquiposMedicos);
+
+        opcionMenuReporteCnsultas.setText("reporte de consultas");
+        opcionMenuReporteCnsultas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionMenuReporteCnsultasActionPerformed(evt);
+            }
+        });
+        MenuReportes.add(opcionMenuReporteCnsultas);
+
+        jMenuBar1.add(MenuReportes);
+
         MenuSalir.setText("salir");
 
         OpcionSalir.setText("salir");
@@ -298,6 +343,30 @@ public class frameMain extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_OpcionSalirActionPerformed
 
+    private void opcionMenuReportePacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuReportePacientesActionPerformed
+        // TODO add your handling code here:
+        setContentPane(pReportePacientes);
+        setVisible(true);
+    }//GEN-LAST:event_opcionMenuReportePacientesActionPerformed
+
+    private void opcionMenuReporteMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuReporteMedicosActionPerformed
+        // TODO add your handling code here:
+        setContentPane(pReporteMedicos);
+        setVisible(true);
+    }//GEN-LAST:event_opcionMenuReporteMedicosActionPerformed
+
+    private void opcionMenuReporteEquiposMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuReporteEquiposMedicosActionPerformed
+        // TODO add your handling code here:
+        setContentPane(pReporteEquiposMedicos);
+        setVisible(true);
+    }//GEN-LAST:event_opcionMenuReporteEquiposMedicosActionPerformed
+
+    private void opcionMenuReporteCnsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionMenuReporteCnsultasActionPerformed
+        // TODO add your handling code here:
+        setContentPane(pReporteConsultas);
+        setVisible(true);
+    }//GEN-LAST:event_opcionMenuReporteCnsultasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -338,6 +407,7 @@ public class frameMain extends javax.swing.JFrame {
     private javax.swing.JMenu MenuEquipoMedico;
     private javax.swing.JMenu MenuMedicos;
     private javax.swing.JMenu MenuPacientes;
+    private javax.swing.JMenu MenuReportes;
     private javax.swing.JMenu MenuSalir;
     private javax.swing.JMenuItem OpcionSalir;
     private javax.swing.JMenuBar jMenuBar1;
@@ -354,5 +424,9 @@ public class frameMain extends javax.swing.JFrame {
     private javax.swing.JMenuItem opcionListarConsultas;
     private javax.swing.JMenuItem opcionListarEquipo;
     private javax.swing.JMenuItem opcionListarPacientes;
+    private javax.swing.JMenuItem opcionMenuReporteCnsultas;
+    private javax.swing.JMenuItem opcionMenuReporteEquiposMedicos;
+    private javax.swing.JMenuItem opcionMenuReporteMedicos;
+    private javax.swing.JMenuItem opcionMenuReportePacientes;
     // End of variables declaration//GEN-END:variables
 }

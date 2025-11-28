@@ -136,6 +136,45 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="MenuReportes">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="reportes"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="opcionMenuReportePacientes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="reporte de pacientes"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionMenuReportePacientesActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="opcionMenuReporteMedicos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="reporte de medicos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionMenuReporteMedicosActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="opcionMenuReporteEquiposMedicos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="reporte de equimo medico"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionMenuReporteEquiposMedicosActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="opcionMenuReporteCnsultas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="reporte de consultas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="opcionMenuReporteCnsultasActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="MenuSalir">
           <Properties>
             <Property name="text" type="java.lang.String" value="salir"/>
