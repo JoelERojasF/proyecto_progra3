@@ -156,9 +156,9 @@ public class panelListarPacientes extends javax.swing.JPanel {
                }
                
            List<Paciente> lista = persistencia.listarPacientes(jTextFieldBuscarNombre.getText(),jTextFieldBuscarDireccion.getText(), desde, hasta);
-           for(int i = 0; i < lista.size(); i++){
-               model.addRow(new Object[]{lista.get(i).getId(),lista.get(i).getNombre(),lista.get(i).getEdad(), lista.get(i).getDireccion()});
-           }
+           for(Paciente p : lista){
+                model.addRow(new Object[]{p.getId(),p.getNombre(),p.getEdad(), p.getDireccion()});
+            }
            }catch(Exception e){
            JOptionPane.showMessageDialog(this, e.getMessage(), "error", JOptionPane.INFORMATION_MESSAGE);
            }

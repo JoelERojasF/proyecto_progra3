@@ -5,19 +5,24 @@
 package Persistencia;
 
 import Entidades.Medico;
+import Interfaces.Imayusculas;
+import Interfaces.Iordenamiento;
+import Interfaces.Ireporte;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import static java.util.stream.Collectors.toList;
 
 /**
  *
  * @author le0jx
  */
-public class PersistenciaMedicos {
+public class PersistenciaMedicos implements Ireporte<Medico>, Imayusculas<Medico>, Iordenamiento<Medico> {
      private static final String ARCHIVO_MEDICOS = "medicos.txt";
 
     public PersistenciaMedicos() {
@@ -71,5 +76,22 @@ public class PersistenciaMedicos {
         List<Medico> especialidades = listarMedicos();
         especialidades.removeIf(e -> e.getId() == id);
         guardarListaMedicos(especialidades);
+    }
+
+    @Override
+    public String generarReporte(List<Medico> lista) {
+        return lista.stream().map(m -> "Nombre: {" + m.getNombre() + "} Especialidad: {" + m.getEspecialidad().getNombre()+ "}" ).collect(Collectors.joining("\n"));
+    }
+
+    @Override
+    public List cambiarMayusculas(List<Medico> lista) {
+        return lista.stream()
+                .map(m -> new Medico(m.getId(), m.getNombre().toUpperCase(), m.getEspecialidad()))
+                .toList();
+    }
+
+    @Override
+    public List ordenarDatos(List<Medico> lista) {
+        return lista.stream().sorted(Comparator.comparing(m -> m.getEspecialidad().getNombre())).toList();
     }
 }

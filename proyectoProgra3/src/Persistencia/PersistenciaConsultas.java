@@ -5,6 +5,7 @@
 package Persistencia;
 
 import Entidades.Consulta;
+import Interfaces.Ireporte;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
  *
  * @author le0jx
  */
-public class PersistenciaConsultas {
+public class PersistenciaConsultas implements Ireporte<Consulta>{
     private static final String ARCHIVO_CONSULTAS = "consultas.txt";
     
     public PersistenciaConsultas() {
@@ -72,5 +73,10 @@ public class PersistenciaConsultas {
         List<Consulta> consultas = listarConsultas();
         consultas.removeIf(c -> c.getId() == id);
         guardarListaConsultas(consultas);
+    }
+
+    @Override
+    public String generarReporte(List<Consulta> lista) {
+        return lista.stream().map(c -> "paciente: {" + c.getPaciente().getNombre() + "} Medico: {" + c.getMedico().getNombre() + "} Fecha: {" + c.getFecha() + "}" ).collect(Collectors.joining("\n"));
     }
 }

@@ -9,11 +9,7 @@ import java.util.List;
 /**
  *
  * @author le0jx
- * @param <T>
  */
-public interface Ireportes <T>{
-    String generarReoprte(List<T> lista);
-    List<T> filtrarBusqueda(List<T> lista, String filtro);
-    List<T> ordenarResultados(List<T> lista);
-    int SumarResultados(List<T> lista);
+public interface Ireporte<T> {
+    String generarReporte(List<T> lista);
 }

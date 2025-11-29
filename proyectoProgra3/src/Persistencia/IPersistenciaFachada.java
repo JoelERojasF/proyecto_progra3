@@ -29,7 +29,7 @@ public interface IPersistenciaFachada {
     //medicos
     void agregarMedico(String nombre, Especialidad especialidad) throws Exception;
     Medico obtenerMedicoPorId(String id) throws Exception;
-    List<Medico> listarMedicos(Especialidad especialidad) throws Exception;
+    List<Medico> listarMedicos(String nombre, String especialidad) throws Exception;
     
     //especialidades
     void agregarEspecialidad(String nombre) throws Exception;

@@ -1,1 +1,2 @@
 1,Electrocardiograma,6
+2,jeringas,12

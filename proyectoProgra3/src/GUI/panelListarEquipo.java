@@ -158,8 +158,8 @@ public class panelListarEquipo extends javax.swing.JPanel {
                    }
                    
                 List<EquipoMedico> lista = persistencia.listarEquiposMedicos(jTextFieldBuscarNombre.getText(), cantidad);
-                for(int i = 0; i < lista.size(); i++){
-                    model.addRow(new Object[]{lista.get(i).getId(),lista.get(i).getNombre(),lista.get(i).getCantidad()});
+                for(EquipoMedico e : lista){
+                    model.addRow(new Object[]{e.getId(),e.getNombre(),e.getCantidad()});
                 }
                }
            }catch(Exception e){

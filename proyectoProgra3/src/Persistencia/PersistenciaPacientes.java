@@ -5,6 +5,8 @@
 package Persistencia;
 
 import Entidades.Paciente;
+import Interfaces.Imayusculas;
+import Interfaces.Ireporte;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -17,7 +19,7 @@ import java.util.stream.Collectors;
  *
  * @author le0jx
  */
-public class PersistenciaPacientes {
+public class PersistenciaPacientes implements Ireporte<Paciente>, Imayusculas<Paciente>{
     private static final String ARCHIVO_PACIENTES = "pacientes.txt";
     
     public PersistenciaPacientes() {
@@ -73,4 +75,18 @@ public class PersistenciaPacientes {
         pacientes.removeIf(p -> p.getId() == id);
         guardarListaPacientes(pacientes);
     }
+
+    @Override
+    public String generarReporte(List<Paciente> lista) {
+        return lista.stream().map(p -> "Nombre: {" + p.getNombre() + "} Edad: {" + p.getEdad() + "} Direccion: {" + p.getDireccion() + "}" ).collect(Collectors.joining("\n"));
+    }
+
+    @Override
+    public List cambiarMayusculas(List<Paciente> lista) {
+        return lista.stream()
+                .map(p -> new Paciente(p.getId(), p.getNombre().toUpperCase(), p.getEdad(), p.getDireccion()))
+                .toList();
+    }
+    
+    
 }

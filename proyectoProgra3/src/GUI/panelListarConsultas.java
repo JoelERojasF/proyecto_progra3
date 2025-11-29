@@ -173,9 +173,9 @@ public class panelListarConsultas extends javax.swing.JPanel {
                }
                
                List<Consulta> lista = persistencia.listarConsultas(p, m, f1, f2);
-               for(int i = 0; i < lista.size(); i++){
-               model.addRow(new Object[]{lista.get(i).getId(), lista.get(i).getPaciente().getId(), lista.get(i).getPaciente().getNombre(), lista.get(i).getPaciente().getEdad(), lista.get(i).getPaciente().getDireccion(), lista.get(i).getMedico().getId(), lista.get(i).getMedico().getNombre(), lista.get(i).getMedico().getEspecialidad().getNombre(), lista.get(i).getFecha().toString()});
-            }
+               for (Consulta c : lista) {
+                   model.addRow(new Object[]{c.getId(), c.getPaciente().getId(), c.getPaciente().getNombre(), c.getPaciente().getEdad(), c.getPaciente().getDireccion(), c.getMedico().getId(), c.getMedico().getNombre(), c.getMedico().getEspecialidad().getNombre(), c.getFecha().toString()});
+               }
 
                
            }catch(Exception e){

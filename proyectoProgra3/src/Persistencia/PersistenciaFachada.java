@@ -9,7 +9,7 @@ import Entidades.EquipoMedico;
 import Entidades.Especialidad;
 import Entidades.Medico;
 import Entidades.Paciente;
-import Interfaces.Ireportes;
+import Interfaces.Iconteo;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -18,12 +18,14 @@ import objetosServicio.Fecha;
 import objetosServicio.Periodo;
 import Validadores.validadores;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import Interfaces.Iordenamiento;
 
 /**
  *
  * @author le0jx
  */
-public class PersistenciaFachada implements IPersistenciaFachada, Ireportes{
+public class PersistenciaFachada implements IPersistenciaFachada, Iordenamiento, Iconteo{
     
     private PersistenciaPacientes persistenciaPacientes;
     private PersistenciaMedicos persistenciaMedicos;
@@ -44,9 +46,6 @@ public class PersistenciaFachada implements IPersistenciaFachada, Ireportes{
     //pacientes
     @Override
     public void agregarPaciente(String nombre, String edad, String direccion) throws Exception {
-//        if(nombre == null || nombre.isBlank() || edad <= 0 || direccion == null || direccion.isBlank()){
-//        throw new IllegalArgumentException("datos invalidos");
-//        } else 
         if(!validador.validarNombrePaciente(nombre)){
         throw new IllegalArgumentException("nombre invalido");
         }else if(!validador.validarEdad(edad)){
@@ -86,57 +85,35 @@ public class PersistenciaFachada implements IPersistenciaFachada, Ireportes{
             throw new NoSuchElementException("ningún paciente registrado");
         }
 
-    // Filtros activos
         boolean filtroDireccion = direccion != null && !direccion.isBlank();
         boolean filtroNombre = nombre != null && !nombre.isBlank();
         boolean filtroEdadDesde = edadDesde > 0;
         boolean filtroEdadHasta = edadHasta > 0;
 
-    // Si ningún filtro está activo, devolvemos todo
         if (!filtroNombre && !filtroDireccion && !filtroEdadDesde && !filtroEdadHasta) {
             return lista;
         }
 
-    // Ajuste automático si el rango de edades viene invertido
         if (filtroEdadDesde && filtroEdadHasta && edadDesde > edadHasta) {
-            int tmp = edadDesde;
-            edadDesde = edadHasta;
-            edadHasta = tmp;
+            throw new IllegalArgumentException("edad desde no puede ser mayor que edad hasta");
         }
 
-        Iterator<Paciente> it = lista.iterator();
-        Pattern pa = Pattern.compile(nombre, Pattern.CASE_INSENSITIVE);
-        while (it.hasNext()) {
-            Paciente p = it.next();
-
-            if (filtroDireccion && !p.getDireccion().equalsIgnoreCase(direccion)) {
-                it.remove();
-                continue;
-            }
-            
-            if(!pa.matcher(p.getNombre()).find()){
-                it.remove();
-                continue;
-            }
-
-            if (filtroEdadDesde && p.getEdad() < edadDesde) {
-                it.remove();
-                continue;
-            }
-
-            if (filtroEdadHasta && p.getEdad() > edadHasta) {
-                it.remove();
-            }
-        }
+        Pattern paN = Pattern.compile(nombre, Pattern.CASE_INSENSITIVE);
+        Pattern paD = Pattern.compile(direccion, Pattern.CASE_INSENSITIVE);
         
-        return lista;
+        return lista.stream()
+        .filter(p -> !filtroDireccion || paD.matcher(p.getDireccion()).find())
+        .filter(p -> !filtroNombre || paN.matcher(p.getNombre()).find())
+        .filter(p -> !filtroEdadDesde || p.getEdad() >= edadDesde)
+        .filter(p -> !filtroEdadHasta || p.getEdad() <= edadHasta)
+        .collect(Collectors.toList());
+                
+        
     }
 
     @Override
     public void actualizarPaciente(String id,String nombre, String edad, String direccion) throws Exception {
-//        if(nombre == null || nombre.isBlank() || edad <= 0 || direccion == null || direccion.isBlank()){
-//        throw new IllegalArgumentException("datos invalidos");
-//        }
+
         if(!validador.validarId(id)){
         throw new IllegalArgumentException("id invalido");
         } else if(!validador.validarNombrePaciente(nombre)){
@@ -167,13 +144,21 @@ public class PersistenciaFachada implements IPersistenciaFachada, Ireportes{
         }
         persistenciaPacientes.eliminarPaciente(Integer.parseInt(id));
     }
+    
+    public String generarReportePaciente(List<Paciente> lista){
+        return persistenciaPacientes.generarReporte(lista);
+    }
+    
+    public List<Paciente> listaNombresPacienteMayusculas(List<Paciente> lista){
+        return persistenciaPacientes.cambiarMayusculas(lista);
+    }
+    
+    
 
     //medicos
     @Override
     public void agregarMedico(String nombre, Especialidad especialidad) throws Exception {
-//        if(nombre == null || nombre.isBlank() || especialidad == null){
-//        throw new IllegalArgumentException("datos invalidos");
-//        }
+
         if(!validador.validarNombreMedico(nombre)){
         throw new IllegalArgumentException("nombre invalido");
         } else if(especialidad == null || !validador.validarEspecialidad(especialidad.getNombre())){
@@ -202,32 +187,48 @@ public class PersistenciaFachada implements IPersistenciaFachada, Ireportes{
     }
 
     @Override
-    public List<Medico> listarMedicos(Especialidad especialidad) throws Exception {
+    public List<Medico> listarMedicos(String nombre, String especialidad) throws Exception {
         List<Medico> lista = persistenciaMedicos.listarMedicos();
         
-        if(lista.size() == 0){
+        if(lista.isEmpty()){
         throw new NoSuchElementException("ningun medico registrado");
         }
-        if (especialidad == null){
-        return lista;
-        }
-        if(especialidad != null){
-            for(int i=0; i > lista.size(); i++){
-                if (!lista.get(i).getEspecialidad().equals(especialidad)){
-                    lista.remove(i);
-                }
-            }
-        }
         
-        return lista;    
+        boolean filtroNombre = nombre != null && !nombre.isBlank();
+        boolean filtroEspecialidad = especialidad != null && !especialidad.isBlank();
+        
+        if (!filtroNombre && !filtroEspecialidad) {
+            return lista;
+        }
+
+        Pattern paN = Pattern.compile(nombre, Pattern.CASE_INSENSITIVE);
+        Pattern paE = Pattern.compile(especialidad, Pattern.CASE_INSENSITIVE);
+        
+ 
+        
+        return lista.stream()
+        .filter(m -> !filtroNombre || paN.matcher(m.getNombre()).find())
+        .filter(m -> !filtroEspecialidad || paE.matcher(m.getEspecialidad().getNombre()).find())
+        .collect(Collectors.toList());
     }
+    
+    public String generarReporteMedico(List<Medico> lista){
+        return persistenciaMedicos.generarReporte(lista);
+    }
+    
+    public List<Medico> listaNombresMedicoMayusculas(List<Medico> lista){
+        return persistenciaMedicos.cambiarMayusculas(lista);
+    }
+    
+    public List<Medico> listaOrdenarEspecialidades(List<Medico> lista){
+        return persistenciaMedicos.ordenarDatos(lista);
+    }
+
 
     //especialidades
     @Override
     public void agregarEspecialidad(String nombre) throws Exception {
-//        if(nombre == null || nombre.isBlank()){
-//        throw new IllegalArgumentException("datos invalidos");
-//        }
+
         if(!validador.validarEspecialidad(nombre)){
         throw new IllegalArgumentException("especialidad invalida");
         }
@@ -257,7 +258,7 @@ public class PersistenciaFachada implements IPersistenciaFachada, Ireportes{
     @Override
     public List<Especialidad> listarEspecialidades() throws Exception {
         List<Especialidad> lista = persistenciaEspecialidades.listarEspecialidades();
-        if(lista.size() == 0){
+        if(lista.isEmpty()){
         throw new NoSuchElementException("ninguna especialidad registrada");
         }
         return lista;
@@ -266,9 +267,7 @@ public class PersistenciaFachada implements IPersistenciaFachada, Ireportes{
     //inventario/equipos medicos
     @Override
     public void agregarEquipoMedico(String nombre, String cantidad) throws Exception {
-//        if(nombre == null || nombre.isBlank()){
-//        throw new IllegalArgumentException("datos invalidos");
-//        }
+
         if(!validador.validarNombreEquipo(nombre)){
         throw new IllegalArgumentException("equipo invalido");
         } else if(!validador.validrCantidadEquipo(cantidad)){
@@ -286,9 +285,7 @@ public class PersistenciaFachada implements IPersistenciaFachada, Ireportes{
 
     @Override
     public void actualizarCantidadEquipo(String id, String cantidad) throws Exception {
-//        if(cantidad < 0 || id < 1 ){
-//        throw new IllegalArgumentException("datos invalidos");
-//        }
+
         if(!validador.validarId(id)){
         throw new IllegalArgumentException("id invalido");
         }else if(!validador.validrCantidadEquipo(cantidad)){
@@ -309,29 +306,46 @@ public class PersistenciaFachada implements IPersistenciaFachada, Ireportes{
         if (lista.isEmpty()) {
             throw new NoSuchElementException("ningún equipo médico registrado");
         }
+        
+        int cantidadEquipo = Integer.parseInt(cantidad);
 
-        boolean filtroNombreActivo = nombre != null && !nombre.isBlank();
-        boolean filtroCantidadActivo = Integer.parseInt(cantidad) >= 0;
+        boolean filtroNombre = nombre != null && !nombre.isBlank();
+        boolean filtroCantidad = cantidadEquipo >= 0;
 
-        if (!filtroNombreActivo && !filtroCantidadActivo) {
+        if (!filtroNombre && !filtroCantidad) {
             return lista;
         }
+        
+       Pattern paN = Pattern.compile(nombre, Pattern.CASE_INSENSITIVE);
 
-        Iterator<EquipoMedico> it = lista.iterator();
-        while (it.hasNext()) {
-            EquipoMedico e = it.next();
+        return lista.stream()
+        .filter(em -> !filtroNombre || paN.matcher(em.getNombre()).find())
+        .filter(em -> !filtroCantidad || em.getCantidad() >= cantidadEquipo)
+        .collect(Collectors.toList());
+    }
+    
+    public List<EquipoMedico> listarEquiposMedicosBajos(String nombre, String cantidad) throws Exception {
+        List<EquipoMedico> lista = persistenciaInventarios.listarInventarios();
 
-        if (filtroNombreActivo && !e.getNombre().equalsIgnoreCase(nombre)) {
-            it.remove();
-            continue;
-        }
-
-        if (filtroCantidadActivo && e.getCantidad() != Integer.parseInt(cantidad)) {
-            it.remove();
-        }
+        if (lista.isEmpty()) {
+            throw new NoSuchElementException("ningún equipo médico registrado");
         }
         
-        return lista;
+        int cantidadEquipo = Integer.parseInt(cantidad);
+
+        boolean filtroNombre = nombre != null && !nombre.isBlank();
+        boolean filtroCantidad = cantidadEquipo >= 0;
+
+        if (!filtroNombre && !filtroCantidad) {
+            return lista;
+        }
+        
+       Pattern paN = Pattern.compile(nombre, Pattern.CASE_INSENSITIVE);
+
+        return lista.stream()
+        .filter(em -> !filtroNombre || paN.matcher(em.getNombre()).find())
+        .filter(em -> !filtroCantidad || em.getCantidad() <= cantidadEquipo)
+        .collect(Collectors.toList());
     }
 
     @Override
@@ -345,13 +359,27 @@ public class PersistenciaFachada implements IPersistenciaFachada, Ireportes{
         }
         return e;
     }
+    
+    public String generarReporteEquipoMedico(List<EquipoMedico> lista){
+        return persistenciaInventarios.generarReporte(lista);
+    }
+    
+    public List<EquipoMedico> listaOrdenarCantidad(List<EquipoMedico> lista){
+        return persistenciaInventarios.ordenarDatos(lista);
+    }
+    
+    public List<EquipoMedico> listaOrdenarCantidadiInv(List<EquipoMedico> lista){
+        return persistenciaInventarios.ordenarDatos(lista).reversed();
+    }
+    
+    public long sumatoriaCantidades(List<EquipoMedico> lista){
+        return persistenciaInventarios.contarDatos(lista);
+    }
 
     //consultas
     @Override
     public void agregarConsulta(Paciente paciente, Medico medico, String fecha) throws Exception {
-//        if(paciente == null || medico == null || fecha == null){
-//        throw new IllegalArgumentException("datos invalidos");
-//        }
+
         if(paciente == null || !validador.validarNombrePaciente(paciente.getNombre())){
         throw new IllegalArgumentException("paciente invalido");
         }else if(medico == null || !validador.validarNombreMedico(medico.getNombre())){
@@ -385,40 +413,24 @@ public class PersistenciaFachada implements IPersistenciaFachada, Ireportes{
         Fecha fecha2 = new Fecha(fechaHasta);
 
         Periodo periodo = new Periodo(fecha1, fecha2);
+        
     if (lista.isEmpty()) {
         throw new NoSuchElementException("ninguna consulta registrada");
     }
 
-    boolean filtrarPaciente = paciente != null;
-    boolean filtrarMedico = medico != null;
-    boolean filtrarPeriodo = periodo != null;
+    boolean filtroPaciente = paciente != null;
+    boolean filtroMedico = medico != null;
+    boolean filtroPeriodo = periodo != null;
 
-    if (!filtrarPaciente && !filtrarMedico && !filtrarPeriodo) {
+    if (!filtroPaciente && !filtroMedico && !filtroPeriodo) {
         return lista;
     }
-
-    Iterator<Consulta> it = lista.iterator();
-    while (it.hasNext()) {
-        Consulta c = it.next();
-
-        if (filtrarPaciente && !paciente.toString().equalsIgnoreCase(c.getPaciente().toString())  ) {
-            it.remove();
-            continue;
-        }
-
-        if (filtrarMedico && !medico.toString().equalsIgnoreCase(c.getMedico().toString()) ) {
-            it.remove();
-            continue;
-        }
-
-        if (filtrarPeriodo) {
-            if (c.getFecha() == null || !periodo.contiene(c.getFecha())) {
-                it.remove();
-            }
-        }
-    }
     
-    return lista;
+    return lista.stream()
+    .filter(c -> !filtroPaciente || c.getPaciente().getId() == paciente.getId())
+    .filter(c -> !filtroMedico || c.getMedico().getId() == medico.getId())
+    .filter(c -> !filtroPeriodo || periodo.contiene(c.getFecha()))
+    .collect(Collectors.toList());
     }
 
     @Override
@@ -444,24 +456,18 @@ public class PersistenciaFachada implements IPersistenciaFachada, Ireportes{
         persistenciaConsultas.eliminarConsulta(Integer.parseInt(id));
     }
     
-    @Override
-    public String generarReoprte(List lista) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String generarReporteConusltas(List<Consulta> lista){
+        return persistenciaConsultas.generarReporte(lista);
     }
 
     @Override
-    public List filtrarBusqueda(List lista, String filtro) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List ordenarDatos(List lista) {
+        return lista.stream().sorted().toList();
     }
 
     @Override
-    public List ordenarResultados(List lista) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public int SumarResultados(List lista) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public long contarDatos(List lista) {
+        return lista.stream().count();
     }
     
 }

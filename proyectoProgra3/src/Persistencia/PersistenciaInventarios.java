@@ -5,19 +5,24 @@
 package Persistencia;
 
 import Entidades.EquipoMedico;
+import Interfaces.Iconteo;
+import Interfaces.Iordenamiento;
+import Interfaces.Ireporte;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import static java.util.stream.Collectors.toList;
 
 /**
  *
  * @author le0jx
  */
-public class PersistenciaInventarios {
+public class PersistenciaInventarios implements Ireporte<EquipoMedico>, Iordenamiento<EquipoMedico>, Iconteo<EquipoMedico>{
     private static final String ARCHIVO_INVENTARIOS = "inventarios.txt";
 
     public PersistenciaInventarios() {
@@ -71,5 +76,20 @@ public class PersistenciaInventarios {
         List<EquipoMedico> inventario = listarInventarios();
         inventario.removeIf(c -> c.getId() == id);
         guardarListaInventarios(inventario);
+    }
+
+    @Override
+    public String generarReporte(List<EquipoMedico> lista) {
+        return lista.stream().map(e -> "Nombre: {" + e.getNombre() + "} Cantidad: {" + e.getCantidad() + "}" ).collect(Collectors.joining("\n"));
+    }
+
+    @Override
+    public List ordenarDatos(List<EquipoMedico> lista) {
+        return lista.stream().sorted(Comparator.comparing(EquipoMedico::getCantidad)).toList();
+    }
+
+    @Override
+    public long contarDatos(List<EquipoMedico> lista) {
+            return lista.stream().mapToLong(EquipoMedico::getCantidad).sum();
     }
 }
