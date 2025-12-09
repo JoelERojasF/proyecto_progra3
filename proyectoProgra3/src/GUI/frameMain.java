@@ -1273,7 +1273,7 @@ public class frameMain extends JFrame {
     private JTextField txtIdPaciente, txtNombrePaciente, txtEdadPaciente, txtDireccionPaciente;
     private JButton btnBuscarPaciente;
     private JTextField txtIdMedico, txtNombreMedico;
-    private JSpinner spinnerEspecialidad;
+    private JLabel labelEspecialidad;
     private JButton btnBuscarMedico;
     private JTextField txtFecha;
     private JButton btnAgregar;
@@ -1368,15 +1368,11 @@ public class frameMain extends JFrame {
         gbc.gridx = 2;
         panelFormulario.add(new JLabel("Especialidad:"), gbc);
         gbc.gridx = 3;
-        try {
-            List<Especialidad> listaEspecialidades = fachada.listarEspecialidades();
-            spinnerEspecialidad = new JSpinner(new SpinnerListModel(listaEspecialidades));
-            spinnerEspecialidad.setEnabled(false); // se activa al buscar médico
-        } catch (Exception ex) {
-            spinnerEspecialidad = new JSpinner(new SpinnerListModel(new String[]{"Sin especialidades"}));
-            spinnerEspecialidad.setEnabled(false);
-        }
-        panelFormulario.add(spinnerEspecialidad, gbc);
+
+            labelEspecialidad = new JLabel("especialidad");
+            labelEspecialidad.setEnabled(false);
+
+        panelFormulario.add(labelEspecialidad, gbc);
 
         // Fecha + Agregar
         gbc.gridx = 0; gbc.gridy = 5;
@@ -1411,13 +1407,12 @@ public class frameMain extends JFrame {
         // Acción Buscar Médico
         btnBuscarMedico.addActionListener(e -> {
             txtNombreMedico.setText("");
-            spinnerEspecialidad.setEnabled(false);
+            labelEspecialidad.setEnabled(false);
             try {
                 if (!txtIdMedico.getText().isBlank()) {
                     Medico m = fachada.obtenerMedicoPorId(txtIdMedico.getText());
                     txtNombreMedico.setText(m.getNombre());
-                    spinnerEspecialidad.setValue(m.getEspecialidad());
-                    spinnerEspecialidad.setEnabled(true);
+                    labelEspecialidad.setText(m.getEspecialidad().getNombre());
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(),
@@ -1441,14 +1436,12 @@ public class frameMain extends JFrame {
                     if (opcion == JOptionPane.YES_OPTION) {
                         Paciente p = fachada.obtenerPacientePorId(txtIdPaciente.getText());
                         Medico m = fachada.obtenerMedicoPorId(txtIdMedico.getText());
-                        Especialidad esp = (Especialidad) spinnerEspecialidad.getValue();
 
                         fachada.agregarConsulta(p, m, txtFecha.getText());
 
                         JOptionPane.showMessageDialog(this,
                                 "Consulta del paciente: " + p.toString() +
                                 " con el médico: " + m.toString() +
-                                " (" + esp.getNombre() + ")" +
                                 " el día: " + txtFecha.getText() +
                                 " fue registrada con éxito",
                                 "Consulta registrada", JOptionPane.INFORMATION_MESSAGE);
