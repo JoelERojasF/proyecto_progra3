@@ -115,23 +115,22 @@ public class PersistenciaFachada implements IPersistenciaFachada, Iordenamiento,
     public void actualizarPaciente(String id,String nombre, String edad, String direccion) throws Exception {
 
         if(!validador.validarId(id)){
-        throw new IllegalArgumentException("id invalido");
+            throw new IllegalArgumentException("id invalido");
         } else if(!validador.validarNombrePaciente(nombre)){
-        throw new IllegalArgumentException("nombre invalido");
+            throw new IllegalArgumentException("nombre invalido");
         }else if(!validador.validarEdad(edad)){
-        throw new IllegalArgumentException("edad invalida");
+            throw new IllegalArgumentException("edad invalida");
         } else if(!validador.validarDireccion(direccion)){
-        throw new IllegalArgumentException("direccion invalida");
+            throw new IllegalArgumentException("direccion invalida");
         }
         else{
         
-        if(persistenciaPacientes.obtenerPacientePorID(Integer.parseInt(id)) == null){
-        throw new NoSuchElementException("paciente no encontrado");
-        }
-        
-        Paciente p = new Paciente(Integer.parseInt(id), nombre, Integer.parseInt(edad), direccion);
-        persistenciaPacientes.actualizarPaciente(p);
-        }
+            if(persistenciaPacientes.obtenerPacientePorID(Integer.parseInt(id)) == null){
+                throw new NoSuchElementException("paciente no encontrado");
+            }
+            Paciente p = new Paciente(Integer.parseInt(id), nombre, Integer.parseInt(edad), direccion);
+            persistenciaPacientes.actualizarPaciente(p);
+            }
     }
 
     @Override
@@ -368,7 +367,7 @@ public class PersistenciaFachada implements IPersistenciaFachada, Iordenamiento,
         return persistenciaInventarios.ordenarDatos(lista);
     }
     
-    public List<EquipoMedico> listaOrdenarCantidadiInv(List<EquipoMedico> lista){
+    public List<EquipoMedico> listaOrdenarCantidadInv(List<EquipoMedico> lista){
         return persistenciaInventarios.ordenarDatos(lista).reversed();
     }
     
@@ -456,7 +455,7 @@ public class PersistenciaFachada implements IPersistenciaFachada, Iordenamiento,
         persistenciaConsultas.eliminarConsulta(Integer.parseInt(id));
     }
     
-    public String generarReporteConusltas(List<Consulta> lista){
+    public String generarReporteConsultas(List<Consulta> lista){
         return persistenciaConsultas.generarReporte(lista);
     }
 
