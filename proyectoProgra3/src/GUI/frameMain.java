@@ -5,9 +5,13 @@
 package GUI;
 
 import Entidades.*;
+import Hilos.TimerReiniciable;
 import Persistencia.PersistenciaFachada;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.HierarchyEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.table.DefaultTableModel;
@@ -177,15 +181,38 @@ public class frameMain extends JFrame {
         revalidate();
         repaint();
     }
-   private class PanelAgregarPacientes extends JPanel {
+    
+   private class PanelAgregarPacientes extends JPanel  implements Interfaces.IaccionTiempo {
     private JTextField txtNombre, txtEdad, txtDireccion;
     private JButton btnAgregar;
     private final PersistenciaFachada fachada;
     private Image backgroundImage;
+    private TimerReiniciable timer = new TimerReiniciable(this);
+    
+    @Override
+        public void cuandoTiempoAcabe() {
+            txtNombre.setText("");
+            txtEdad.setText("");
+            txtDireccion.setText("");
+            JOptionPane.showMessageDialog(this, "El formulario se reinicio por inactividad",
+                        "¿Siguens ahí?", JOptionPane.INFORMATION_MESSAGE);
+        }
 
     public PanelAgregarPacientes() {
         fachada = new PersistenciaFachada();
         setLayout(new BorderLayout());
+        
+        addHierarchyListener(e -> {
+            if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                if (isShowing()) {
+                    System.out.println("PanelAgregarPacientes → ahora VISIBLE");
+                    timer.startTimer();
+                } else {
+                    System.out.println("PanelAgregarPacientes → ahora NO visible");
+                    timer.stop();
+                }
+            }
+        });
 
         // Panel de imagen a la izquierda
         JPanel panelImagen = new JPanel() {
@@ -260,15 +287,39 @@ public class frameMain extends JFrame {
     
     
     
-     private class PanelActualizarPacientes extends JPanel {
+    private class PanelActualizarPacientes extends JPanel implements Interfaces.IaccionTiempo {
     private JTextField txtId, txtNombre, txtEdad, txtDireccion;
     private JButton btnBuscar, btnActualizar;
     private final PersistenciaFachada fachada;
     private Image backgroundImage;
+    private TimerReiniciable timer = new TimerReiniciable(this);
+
+    @Override
+        public void cuandoTiempoAcabe() {
+            txtId.setText("");
+            txtNombre.setText("");
+            txtEdad.setText("");
+            txtDireccion.setText("");
+            JOptionPane.showMessageDialog(this, "El formulario se reinicio por inactividad",
+                        "¿Siguens ahí?", JOptionPane.INFORMATION_MESSAGE);
+        }
+
 
     public PanelActualizarPacientes() {
         fachada = new PersistenciaFachada();
         setLayout(new BorderLayout());
+        
+        addHierarchyListener(e -> {
+            if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                if (isShowing()) {
+                    System.out.println("PanelAgregarPacientes → ahora VISIBLE");
+                    timer.startTimer();
+                } else {
+                    System.out.println("PanelAgregarPacientes → ahora NO visible");
+                    timer.stop();
+                }
+            }
+        });
 
         // Panel de imagen a la izquierda
         JPanel panelImagen = new JPanel() {
@@ -364,15 +415,38 @@ public class frameMain extends JFrame {
         });
     }
 }
-    private class PanelConsultarPacientes extends JPanel {
+    private class PanelConsultarPacientes extends JPanel implements Interfaces.IaccionTiempo {
     private JTextField txtId, txtNombre, txtEdad, txtDireccion;
     private JButton btnBuscar;
     private final PersistenciaFachada fachada;
     private Image backgroundImage;
+    public TimerReiniciable timer = new TimerReiniciable(this);
+    
+    @Override
+        public void cuandoTiempoAcabe() {
+            txtId.setText("");
+            txtNombre.setText("");
+            txtEdad.setText("");
+            txtDireccion.setText("");
+            JOptionPane.showMessageDialog(this, "El formulario se reinicio por inactividad",
+                        "¿Siguens ahí?", JOptionPane.INFORMATION_MESSAGE);
+        }
 
     public PanelConsultarPacientes() {
         fachada = new PersistenciaFachada();
         setLayout(new BorderLayout());
+        
+        addHierarchyListener(e -> {
+            if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                if (isShowing()) {
+                    System.out.println("PanelAgregarPacientes → ahora VISIBLE");
+                    timer.startTimer();
+                } else {
+                    System.out.println("PanelAgregarPacientes → ahora NO visible");
+                    timer.stop();
+                }
+            }
+        });
 
         // Panel de imagen a la izquierda
         JPanel panelImagen = new JPanel() {
@@ -454,15 +528,39 @@ public class frameMain extends JFrame {
         });
     }
 }
-     private class PanelEliminarPacientes extends JPanel {
+     private class PanelEliminarPacientes extends JPanel implements Interfaces.IaccionTiempo {
     private JTextField txtId, txtNombre, txtEdad, txtDireccion;
     private JButton btnBuscar, btnEliminar;
     private final PersistenciaFachada fachada;
     private Image backgroundImage;
+    private TimerReiniciable timer = new TimerReiniciable(this);
+    
+    @Override
+        public void cuandoTiempoAcabe() {
+            txtId.setText("");
+            txtNombre.setText("");
+            txtEdad.setText("");
+            txtDireccion.setText("");
+            JOptionPane.showMessageDialog(this, "El formulario se reinicio por inactividad",
+                        "¿Siguens ahí?", JOptionPane.INFORMATION_MESSAGE);
+        }
+
 
     public PanelEliminarPacientes() {
         fachada = new PersistenciaFachada();
         setLayout(new BorderLayout());
+        
+        addHierarchyListener(e -> {
+            if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                if (isShowing()) {
+                    System.out.println("PanelAgregarPacientes → ahora VISIBLE");
+                    timer.startTimer();
+                } else {
+                    System.out.println("PanelAgregarPacientes → ahora NO visible");
+                    timer.stop();
+                }
+            }
+        });
 
         // Panel de imagen a la izquierda
         JPanel panelImagen = new JPanel() {
@@ -569,12 +667,14 @@ public class frameMain extends JFrame {
         });
     }
 }
-     private class PanelListarPacientes extends JPanel {
+     private class PanelListarPacientes extends JPanel{
         private JTextField txtNombre, txtDireccion, txtEdadDesde, txtEdadHasta;
         private JButton btnBuscar;
         private JTable tabla;
         private JLabel lblResultados;
         private final PersistenciaFachada fachada;
+
+
 
         public PanelListarPacientes() {
             fachada = new PersistenciaFachada();
@@ -644,16 +744,37 @@ public class frameMain extends JFrame {
     }
 
        
-     private class PanelAgregarMedicos extends JPanel {
+    private class PanelAgregarMedicos extends JPanel implements Interfaces.IaccionTiempo {
     private JTextField txtNombre;
     private JComboBox<Especialidad> comboEspecialidades;
     private JButton btnAgregar;
     private final PersistenciaFachada fachada;
     private Image backgroundImage;
+    private TimerReiniciable timer = new TimerReiniciable(this);
+
+    @Override
+        public void cuandoTiempoAcabe() {
+            txtNombre.setText("");
+            comboEspecialidades.setSelectedIndex(0);
+            JOptionPane.showMessageDialog(this, "El formulario se reinicio por inactividad",
+                        "¿Siguens ahí?", JOptionPane.INFORMATION_MESSAGE);
+        }
 
     public PanelAgregarMedicos() {
         fachada = new PersistenciaFachada();
         setLayout(new BorderLayout());
+        
+        addHierarchyListener(e -> {
+            if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                if (isShowing()) {
+                    System.out.println("PanelAgregarPacientes → ahora VISIBLE");
+                    timer.startTimer();
+                } else {
+                    System.out.println("PanelAgregarPacientes → ahora NO visible");
+                    timer.stop();
+                }
+            }
+        });
 
         // Panel de imagen a la izquierda
         JPanel panelImagen = new JPanel() {
@@ -704,6 +825,7 @@ public class frameMain extends JFrame {
         // Cargar especialidades
         try {
             List<Especialidad> listaEspecialidades = fachada.listarEspecialidades();
+                comboEspecialidades.addItem(null);
             for (Especialidad e : listaEspecialidades) {
                 comboEspecialidades.addItem(e);
             }
@@ -731,16 +853,38 @@ public class frameMain extends JFrame {
         });
     }
 }
-    private class PanelConsultarMedicos extends JPanel {
+    private class PanelConsultarMedicos extends JPanel implements Interfaces.IaccionTiempo {
     private JTextField txtId, txtNombre, txtEspecialidad;
     private JButton btnBuscar;
     private final PersistenciaFachada fachada;
     private Image backgroundImage;
+    private TimerReiniciable timer = new TimerReiniciable(this);
+
+    @Override
+        public void cuandoTiempoAcabe() {
+            txtId.setText("");
+            txtNombre.setText("");
+            txtEspecialidad.setText("");
+            JOptionPane.showMessageDialog(this, "El formulario se reinicio por inactividad",
+                        "¿Siguens ahí?", JOptionPane.INFORMATION_MESSAGE);
+        }
 
     public PanelConsultarMedicos() {
         fachada = new PersistenciaFachada();
         setLayout(new BorderLayout());
 
+        addHierarchyListener(e -> {
+            if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                if (isShowing()) {
+                    System.out.println("PanelAgregarPacientes → ahora VISIBLE");
+                    timer.startTimer();
+                } else {
+                    System.out.println("PanelAgregarPacientes → ahora NO visible");
+                    timer.stop();
+                }
+            }
+        });
+        
         // Panel de imagen a la izquierda
         JPanel panelImagen = new JPanel() {
             @Override
@@ -820,6 +964,7 @@ public class frameMain extends JFrame {
         private JTable tabla;
         private final PersistenciaFachada fachada;
 
+
         public PanelListarEquipo() {
             fachada = new PersistenciaFachada();
             setLayout(new BorderLayout(10, 10));
@@ -898,16 +1043,40 @@ public class frameMain extends JFrame {
         }
     }
     
-   private class PanelInventariarEquipo extends JPanel {
+   private class PanelInventariarEquipo extends JPanel implements Interfaces.IaccionTiempo {
     private JTextField txtId, txtNombre, txtCantidad, txtCantidadAñadir;
     private JButton btnBuscar, btnAgregar;
     private JCheckBox chkNuevo;
     private final PersistenciaFachada fachada;
     private Image backgroundImage;
+    private TimerReiniciable timer = new TimerReiniciable(this);
+    
+    @Override
+        public void cuandoTiempoAcabe() {
+            txtId.setText("");
+            txtNombre.setText("");
+            txtCantidad.setText("");
+            txtCantidadAñadir.setText("");
+            JOptionPane.showMessageDialog(this, "El formulario se reinicio por inactividad",
+                        "¿Siguens ahí?", JOptionPane.INFORMATION_MESSAGE);
+        }
+
 
     public PanelInventariarEquipo() {
         fachada = new PersistenciaFachada();
         setLayout(new BorderLayout());
+        
+        addHierarchyListener(e -> {
+            if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                if (isShowing()) {
+                    System.out.println("PanelAgregarPacientes → ahora VISIBLE");
+                    timer.startTimer();
+                } else {
+                    System.out.println("PanelAgregarPacientes → ahora NO visible");
+                    timer.stop();
+                }
+            }
+        });
 
         // Panel de imagen a la izquierda con ancho fijo de 400 px
         JPanel panelImagen = new JPanel() {
@@ -1050,15 +1219,38 @@ public class frameMain extends JFrame {
     }
 }
     
-    private class PanelDesinventariarEquipo extends JPanel {
+    private class PanelDesinventariarEquipo extends JPanel implements Interfaces.IaccionTiempo {
     private JTextField txtId, txtNombre, txtCantidad, txtCantidadEliminar;
     private JButton btnBuscar, btnEliminar;
     private final PersistenciaFachada fachada;
     private Image backgroundImage;
+    private TimerReiniciable timer = new TimerReiniciable(this);
+
+    @Override
+        public void cuandoTiempoAcabe() {
+            txtId.setText("");
+            txtNombre.setText("");
+            txtCantidad.setText("");
+            txtCantidadEliminar.setText("");
+            JOptionPane.showMessageDialog(this, "El formulario se reinicio por inactividad",
+                        "¿Siguens ahí?", JOptionPane.INFORMATION_MESSAGE);
+        }
 
     public PanelDesinventariarEquipo() {
         fachada = new PersistenciaFachada();
         setLayout(new BorderLayout());
+        
+        addHierarchyListener(e -> {
+            if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                if (isShowing()) {
+                    System.out.println("PanelAgregarPacientes → ahora VISIBLE");
+                    timer.startTimer();
+                } else {
+                    System.out.println("PanelAgregarPacientes → ahora NO visible");
+                    timer.stop();
+                }
+            }
+        });
 
         // Panel de imagen a la izquierda
         JPanel panelImagen = new JPanel() {
@@ -1181,16 +1373,18 @@ public class frameMain extends JFrame {
     }
 }
     
-    private class PanelListarConsultas extends JPanel {
+    private class PanelListarConsultas extends JPanel{
         private JTextField txtIdPaciente, txtIdMedico, txtFechaDesde, txtFechaHasta;
         private JButton btnBuscar;
         private JTable tabla;
         private final PersistenciaFachada fachada;
 
+        
+
         public PanelListarConsultas() {
             fachada = new PersistenciaFachada();
             setLayout(new BorderLayout(10, 10));
-
+            
             // Título
             add(new JLabel("Listar Consultas", JLabel.CENTER), BorderLayout.NORTH);
 
@@ -1269,20 +1463,48 @@ public class frameMain extends JFrame {
         }
     }
     
-  private class PanelAgregarConsulta extends JPanel {
+  private class PanelAgregarConsulta extends JPanel implements Interfaces.IaccionTiempo {
     private JTextField txtIdPaciente, txtNombrePaciente, txtEdadPaciente, txtDireccionPaciente;
     private JButton btnBuscarPaciente;
     private JTextField txtIdMedico, txtNombreMedico;
-    private JLabel labelEspecialidad;
+    private JTextField txtEspecialidad;
     private JButton btnBuscarMedico;
     private JTextField txtFecha;
     private JButton btnAgregar;
     private final PersistenciaFachada fachada;
     private Image backgroundImage;
+    private TimerReiniciable timer = new TimerReiniciable(this);
+
+    @Override
+        public void cuandoTiempoAcabe() {
+            txtIdPaciente.setText("");
+            txtNombrePaciente.setText("");
+            txtEdadPaciente.setText("");
+            txtDireccionPaciente.setText("");
+            txtIdMedico.setText("");
+            txtNombreMedico.setText("");
+            txtEspecialidad.setText("");
+            txtFecha.setText("");
+            
+            JOptionPane.showMessageDialog(this, "El formulario se reinicio por inactividad",
+                        "¿Siguens ahí?", JOptionPane.INFORMATION_MESSAGE);
+        }
 
     public PanelAgregarConsulta() {
         fachada = new PersistenciaFachada();
         setLayout(new BorderLayout());
+        
+        addHierarchyListener(e -> {
+            if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                if (isShowing()) {
+                    System.out.println("PanelAgregarPacientes → ahora VISIBLE");
+                    timer.startTimer();
+                } else {
+                    System.out.println("PanelAgregarPacientes → ahora NO visible");
+                    timer.stop();
+                }
+            }
+        });
 
         // Panel de imagen a la izquierda
         JPanel panelImagen = new JPanel() {
@@ -1369,10 +1591,10 @@ public class frameMain extends JFrame {
         panelFormulario.add(new JLabel("Especialidad:"), gbc);
         gbc.gridx = 3;
 
-            labelEspecialidad = new JLabel("especialidad");
-            labelEspecialidad.setEnabled(false);
+            txtEspecialidad = new JTextField("especialidad");
+            txtEspecialidad.setEnabled(false);
 
-        panelFormulario.add(labelEspecialidad, gbc);
+        panelFormulario.add(txtEspecialidad, gbc);
 
         // Fecha + Agregar
         gbc.gridx = 0; gbc.gridy = 5;
@@ -1407,12 +1629,12 @@ public class frameMain extends JFrame {
         // Acción Buscar Médico
         btnBuscarMedico.addActionListener(e -> {
             txtNombreMedico.setText("");
-            labelEspecialidad.setEnabled(false);
+            txtEspecialidad.setEnabled(false);
             try {
                 if (!txtIdMedico.getText().isBlank()) {
                     Medico m = fachada.obtenerMedicoPorId(txtIdMedico.getText());
                     txtNombreMedico.setText(m.getNombre());
-                    labelEspecialidad.setText(m.getEspecialidad().getNombre());
+                    txtEspecialidad.setText(m.getEspecialidad().getNombre());
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(),
@@ -1455,15 +1677,38 @@ public class frameMain extends JFrame {
     }
 }
     
-    private class PanelEliminarConsulta extends JPanel {
+    private class PanelEliminarConsulta extends JPanel implements Interfaces.IaccionTiempo  {
     private JTextField txtId, txtNombrePaciente, txtNombreMedico, txtFecha;
     private JButton btnBuscar, btnEliminar;
     private final PersistenciaFachada fachada;
     private Image backgroundImage;
+    private TimerReiniciable timer = new TimerReiniciable(this);
+
+    @Override
+        public void cuandoTiempoAcabe() {
+            txtId.setText("");
+            txtNombrePaciente.setText("");
+            txtNombreMedico.setText("");
+            txtFecha.setText("");
+            JOptionPane.showMessageDialog(this, "El formulario se reinicio por inactividad",
+                        "¿Siguens ahí?", JOptionPane.INFORMATION_MESSAGE);
+        }
 
     public PanelEliminarConsulta() {
         fachada = new PersistenciaFachada();
         setLayout(new BorderLayout());
+        
+        addHierarchyListener(e -> {
+            if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                if (isShowing()) {
+                    System.out.println("PanelAgregarPacientes → ahora VISIBLE");
+                    timer.startTimer();
+                } else {
+                    System.out.println("PanelAgregarPacientes → ahora NO visible");
+                    timer.stop();
+                }
+            }
+        });
 
         // Panel de imagen a la izquierda
         JPanel panelImagen = new JPanel() {
@@ -1580,7 +1825,7 @@ public class frameMain extends JFrame {
     }
 }
     
-    private class PanelReportePacientes extends JPanel {
+    private class PanelReportePacientes extends JPanel implements Interfaces.IaccionTiempo {
         private JTextField txtNombre, txtDireccion, txtEdadDesde, txtEdadHasta;
         private JButton btnBuscar, btnGenerarReporte;
         private JTable tabla;
@@ -1588,11 +1833,36 @@ public class frameMain extends JFrame {
         private JLabel lblResultados;
         private JCheckBox chkMayusculas;
         private final PersistenciaFachada fachada;
+        private TimerReiniciable timer = new TimerReiniciable(this);
+
+        @Override
+        public void cuandoTiempoAcabe() {
+            txtNombre.setText("");
+            txtEdadDesde.setText("");
+            txtEdadHasta.setText("");
+            txtDireccion.setText("");
+            txtReporte.setText("");
+            DefaultTableModel model = (DefaultTableModel) tabla.getModel();
+            model.setRowCount(0);
+            JOptionPane.showMessageDialog(this, "El formulario se reinicio por inactividad",
+                        "¿Siguens ahí?", JOptionPane.INFORMATION_MESSAGE);
+        }
 
         public PanelReportePacientes() {
             fachada = new PersistenciaFachada();
             setLayout(new BorderLayout(10, 10));
 
+            addHierarchyListener(e -> {
+            if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+                if (isShowing()) {
+                    System.out.println("PanelAgregarPacientes → ahora VISIBLE");
+                    timer.startTimer();
+                } else {
+                    System.out.println("PanelAgregarPacientes → ahora NO visible");
+                    timer.stop();
+                }
+            }
+        });
             // Título
             add(new JLabel("Reporte de Pacientes", JLabel.CENTER), BorderLayout.NORTH);
 
